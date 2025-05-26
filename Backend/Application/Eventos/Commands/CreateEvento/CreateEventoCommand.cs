@@ -8,10 +8,13 @@ using System.Threading.Tasks;
 
 namespace Application.Eventos.Commands.CreateEvento
 {
-    public record CreateEventoCommand(string Nombre,
-                                      string? Descripcion,
-                                      DateTime FechaHora,
-                                      string? Ubicacion,
-                                      int CapacidadMaxima) :  IRequest<RespuestaGeneral<string>>;
+    public record CreateEventoComman(
+    string Nombre,
+    string Descripcion,
+    DateTime FechaHora,
+    string Ubicacion,
+    int CapacidadMaxima,
+    int Usuario 
+) : IRequest<RespuestaGeneral<string>>;
 
 }

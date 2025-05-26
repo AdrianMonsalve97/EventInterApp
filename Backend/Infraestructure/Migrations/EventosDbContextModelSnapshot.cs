@@ -41,6 +41,9 @@ namespace Infraestructure.Migrations
                     b.Property<DateTime>("FechaHora")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("IdCreador")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -55,6 +58,8 @@ namespace Infraestructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdCreador");
 
                     b.HasIndex("UsuarioId");
 
@@ -97,8 +102,8 @@ namespace Infraestructure.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -107,8 +112,8 @@ namespace Infraestructure.Migrations
 
                     b.Property<string>("NombreUsuario")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()
@@ -121,18 +126,41 @@ namespace Infraestructure.Migrations
                     b.Property<int>("Rol")
                         .HasColumnType("int");
 
-                    b.Property<string>("TipoDocumento")
+                    b.Property<string>("TipoDocumentoCodigo")
                         .IsRequired()
-                        .HasMaxLength(5)
                         .HasColumnType("nvarchar(5)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usuarios");
+                    b.HasIndex("TipoDocumentoCodigo");
+
+                    b.ToTable("Usuarios", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.ValueObjects.TipoDocumento", b =>
+                {
+                    b.Property<string>("Codigo")
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Codigo");
+
+                    b.ToTable("TiposDocumento", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Evento", b =>
                 {
+                    b.HasOne("Domain.Entities.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("IdCreador")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.Usuario", null)
                         .WithMany("EventosCreados")
                         .HasForeignKey("UsuarioId");
@@ -155,6 +183,17 @@ namespace Infraestructure.Migrations
                     b.Navigation("Evento");
 
                     b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Usuario", b =>
+                {
+                    b.HasOne("Domain.ValueObjects.TipoDocumento", "TipoDocumento")
+                        .WithMany()
+                        .HasForeignKey("TipoDocumentoCodigo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TipoDocumento");
                 });
 
             modelBuilder.Entity("Domain.Entities.Evento", b =>

@@ -11,34 +11,11 @@ namespace Domain.Entities
     /// </summary>
     public class Inscripcion
     {
-        /// <summary>
-        /// Identificador autoincremental de la inscripción.
-        /// </summary>
         public int Id { get; set; }
-
-        /// <summary>
-        /// ID del usuario inscrito (documento).
-        /// </summary>
         public int UsuarioId { get; set; }
-
-        /// <summary>
-        /// Usuario relacionado a la inscripción.
-        /// </summary>
-        public Usuario Usuario { get; set; } = null!;
-
-        /// <summary>
-        /// ID del evento al que se inscribe.
-        /// </summary>
-        public int EventoId { get; set; }
-
-        /// <summary>
-        /// Evento relacionado a la inscripción.
-        /// </summary>
-        public Evento Evento { get; set; } = null!;
-
-        /// <summary>
-        /// Fecha en que se realiza la inscripción.
-        /// </summary>
-        public DateTime FechaInscripcion { get; set; } = DateTime.UtcNow;
+        public Usuario Usuario { get; set; }
+        public int EventoId { get; set; } // Cambiado de "IdEvento" a "EventoId" para que coincida con el error reportado.  
+        public Evento Evento { get; set; }
+        public DateTime FechaInscripcion { get; set; }
     }
 }

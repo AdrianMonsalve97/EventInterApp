@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "primeicons/primeicons.css";
+
+@keyframes floatSquare {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-30px) translateX(15px) rotate(15deg);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0.8;
+  }
+}
+
+.animate-float-square {
+  animation: floatSquare 6s ease-in-out infinite;
+}

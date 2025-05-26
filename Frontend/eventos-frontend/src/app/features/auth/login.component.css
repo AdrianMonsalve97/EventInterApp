@@ -1,0 +1,4 @@
+.parallax .layer {
+  transform: translateZ(0);
+  will-change: transform;
+}

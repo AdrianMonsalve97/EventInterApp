@@ -6,6 +6,8 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Contracts.Autenticacion;
 using Shared.Contracts.Genericos;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace Api.Controllers;
 
@@ -32,6 +34,7 @@ public class AuthController : ControllerBase
     /// <returns>Mensaje de confirmación o error con estado detallado.</returns>
     /// <response code="200">Registro exitoso</response>
     /// <response code="400">Error en la solicitud</response>
+    [AllowAnonymous]
     [HttpPost("registrar")]
     [ProducesResponseType(typeof(RespuestaGeneral<string>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(RespuestaGeneral<string>), StatusCodes.Status400BadRequest)]
@@ -47,6 +50,7 @@ public class AuthController : ControllerBase
     /// <param name="comando">Credenciales del usuario</param>
     /// <returns>Token JWT y datos del usuario</returns>
     [HttpPost("login")]
+    [AllowAnonymous]
     [ProducesResponseType(typeof(RespuestaGeneral<JwtResponseDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(RespuestaGeneral<JwtResponseDto>), StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Login([FromBody] LoginUsuarioCommand comando)
@@ -74,6 +78,7 @@ public class AuthController : ControllerBase
     /// Recupera la contraseña y envía una nueva temporal al correo.
     /// </summary>
     [HttpPost("recuperarpassword")]
+    [AllowAnonymous]
     public async Task<IActionResult> RecuperarPassword([FromBody] RecuperarPasswordCommand comando)
     {
         var respuesta = await _mediator.Send(comando);

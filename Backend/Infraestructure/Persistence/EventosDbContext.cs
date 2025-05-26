@@ -21,6 +21,42 @@ namespace Infraestructure.Persistence
         {
             base.OnModelCreating(modelBuilder);
 
+            // Tabla Usuarios
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                entity.ToTable("Usuarios");
+
+                entity.HasKey(u => u.Id);
+
+                entity.Property(u => u.Id)
+                      .ValueGeneratedNever();
+
+                entity.Property(u => u.Nombre)
+                      .IsRequired()
+                      .HasMaxLength(100);
+
+                entity.Property(u => u.NombreUsuario)
+                      .IsRequired()
+                      .HasMaxLength(50);
+
+                entity.Property(u => u.Email)
+                      .IsRequired()
+                      .HasMaxLength(100);
+
+                entity.Property(u => u.PasswordHash)
+                      .IsRequired();
+
+                entity.Property(u => u.PasswordSalt)
+                      .IsRequired();
+
+                entity.Property(u => u.Rol)
+                      .IsRequired();
+
+                entity.Property(u => u.DebeCambiarPassword)
+                      .IsRequired();
+            });
+
+            // Tabla Eventos
             modelBuilder.Entity<Evento>(entity =>
             {
                 entity.ToTable("Eventos");
@@ -32,37 +68,29 @@ namespace Infraestructure.Persistence
                       .HasMaxLength(100);
 
                 entity.Property(e => e.Descripcion)
+                      .IsRequired()
                       .HasMaxLength(500);
 
+                entity.Property(e => e.FechaHora)
+                      .IsRequired();
+
                 entity.Property(e => e.Ubicacion)
+                      .IsRequired()
                       .HasMaxLength(200);
 
                 entity.Property(e => e.CapacidadMaxima)
                       .IsRequired();
 
-                entity.Property(e => e.FechaHora)
+                entity.Property(e => e.IdCreador)
                       .IsRequired();
+
+                entity.HasOne<Usuario>()
+                      .WithMany()
+                      .HasForeignKey(e => e.IdCreador)
+                      .OnDelete(DeleteBehavior.Restrict);
             });
 
-            modelBuilder.Entity<Usuario>(entity =>
-            {
-                entity.HasKey(u => u.Id);
-                entity.Property(u => u.Id).ValueGeneratedNever();
-                entity.Property(u => u.NombreUsuario).IsRequired().HasMaxLength(100);
-                entity.Property(u => u.Email).IsRequired().HasMaxLength(150);
-                entity.Property(u => u.Nombre).IsRequired().HasMaxLength(100);
-                entity.Property(u => u.Nombre).IsRequired().HasMaxLength(100);
-                entity.Property(u => u.TipoDocumento)
-                    .HasConversion(
-                     v => v.Codigo,     
-                     v => TipoDocumento.FromCodigo(v))
-                    .HasMaxLength(5);
-                entity.Property(u => u.PasswordHash).IsRequired();
-                entity.Property(u => u.PasswordSalt).IsRequired();
-                entity.Property(u => u.DebeCambiarPassword).IsRequired();
-                entity.Property(u => u.Rol).IsRequired();
-            });
-
+            // Tabla Inscripciones
             modelBuilder.Entity<Inscripcion>(entity =>
             {
                 entity.ToTable("Inscripciones");
@@ -83,6 +111,17 @@ namespace Infraestructure.Persistence
                       .OnDelete(DeleteBehavior.Cascade);
             });
 
+            modelBuilder.Entity<TipoDocumento>(entity =>
+            {
+                entity.ToTable("TiposDocumento");
+
+                entity.HasKey(t => t.Codigo);
+
+                entity.Property(t => t.Codigo).IsRequired().HasMaxLength(5);
+                entity.Property(t => t.Nombre).IsRequired().HasMaxLength(100);
+            });
+
         }
+
     }
 }

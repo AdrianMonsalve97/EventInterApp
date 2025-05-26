@@ -10,7 +10,7 @@ public static class SeedData
 {
     public static async Task InicializarAsync(EventosDbContext context)
     {
-        //await context.Database.EnsureDeletedAsync();
+        await context.Database.EnsureDeletedAsync();
         await context.Database.MigrateAsync();
         // Verifica si ya existe el usuario Admin
         bool existeAdmin = await context.Usuarios.AnyAsync(u => u.Id == 1233492139);
