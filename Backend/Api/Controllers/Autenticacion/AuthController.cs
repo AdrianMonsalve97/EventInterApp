@@ -1,4 +1,6 @@
-﻿using Application.Usuarios.Commands.LoginUsuario;
+﻿using Application.Usuarios.Commands.CambiarPassword;
+using Application.Usuarios.Commands.LoginUsuario;
+using Application.Usuarios.Commands.RecuperarPassword;
 using Application.Usuarios.Commands.RegistrarUsuario;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -55,4 +57,28 @@ public class AuthController : ControllerBase
             ? Unauthorized(respuesta)
             : Ok(respuesta);
     }
+
+    /// <summary>
+    /// Cambia la contraseña del usuario autenticado x primera vez.
+    /// </summary>
+    /// <param name="comando"></param>
+    /// <returns></returns>
+    [HttpPut("cambiarpassword")]
+    public async Task<IActionResult> CambiarPassword([FromBody] CambiarPasswordCommand comando)
+    {
+        RespuestaGeneral<string> respuesta = await _mediator.Send(comando);
+        return respuesta.Error ? BadRequest(respuesta) : Ok(respuesta);
+    }
+
+    /// <summary>
+    /// Recupera la contraseña y envía una nueva temporal al correo.
+    /// </summary>
+    [HttpPost("recuperarpassword")]
+    public async Task<IActionResult> RecuperarPassword([FromBody] RecuperarPasswordCommand comando)
+    {
+        var respuesta = await _mediator.Send(comando);
+        return respuesta.Error ? BadRequest(respuesta) : Ok(respuesta);
+    }
+
+
 }

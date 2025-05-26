@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Folder Include="Eventos\Queries\" />
-    <Folder Include="Usuarios\Queries\" />
   </ItemGroup>
 
   <PropertyGroup>

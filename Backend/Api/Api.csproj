@@ -31,7 +31,6 @@
 	<ItemGroup>
     <Folder Include="Controllers\Eventos\" />
     <Folder Include="Controllers\Inscripciones\" />
-    <Folder Include="Controllers\Usuarios\" />
   </ItemGroup>
 
 </Project>
