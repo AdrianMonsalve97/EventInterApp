@@ -42,18 +42,6 @@ builder.Services.AddControllers(options =>
 });
 
 
-/// Configuración de CORS para permitir solicitudes desde cualquier origen
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-});
-
-
 
 
 // Configuración de autenticación JWT
@@ -123,7 +111,19 @@ builder.Services.AddSwaggerGen(options =>
 
 });
 
-WebApplication app = builder.Build();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+
+
+var app = builder.Build();
 
 // Middleware de errores y validación de header personalizado
 app.UseMiddleware<ErrorHandlingMiddleware>();
@@ -147,8 +147,9 @@ app.UseSwaggerUI(c =>
 
 
 
+
 app.UseHttpsRedirection();
-app.UseCors();
+app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
