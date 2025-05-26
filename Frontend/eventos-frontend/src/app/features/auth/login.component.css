@@ -1,4 +1,4 @@
-.parallax .layer {
-  transform: translateZ(0);
-  will-change: transform;
+.p-password input {
+  border: 1px solid red;
+  width: 100%;
 }

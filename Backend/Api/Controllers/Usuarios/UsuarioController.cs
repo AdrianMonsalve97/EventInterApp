@@ -3,6 +3,7 @@ using Application.Usuarios.Queries.ListarAsistentes;
 using Application.Usuarios.Queries.ListarTodosUsuarios;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Contracts.Genericos;
 
 namespace Api.Controllers;
 
@@ -47,7 +48,7 @@ public class UsuariosController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> ActualizarUsuario([FromBody] ActualizarUsuarioCommand comando)
     {
-        var respuesta = await _mediator.Send(comando);
+        RespuestaGeneral<string> respuesta = await _mediator.Send(comando);
         return respuesta.Error ? BadRequest(respuesta) : Ok(respuesta);
     }
 

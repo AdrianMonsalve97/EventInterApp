@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/enviroment';
 
 export type LoginRequest = {
-  username: string;
+  nombreUsuario: string;
   password: string;
 };
 

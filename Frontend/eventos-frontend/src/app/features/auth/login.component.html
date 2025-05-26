@@ -1,39 +1,48 @@
-<div class="relative h-screen overflow-y-scroll bg-gradient-to-b from-[#1e2a78] to-[#3d4ecb] font-montserrat">
+<div class="relative h-screen  bg-gradient-to-b from-[#1e2a78] to-[#3d4ecb] font-montserrat">
   <!-- Fondo cuadrado animado -->
   <ul class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
+    <li class="absolute animate-float-square bg-[#D9EAFD] opacity-90 rounded-lg"></li>
+    <li class="absolute animate-float-square bg-[#BCCCDC] opacity-90 rounded-md"></li>
+    <li class="absolute animate-float-square bg-[#F8FAFC] opacity-90 rounded-sm"></li>
+    <li class="absolute animate-float-square bg-[#D9EAFD] opacity-90 rounded-lg"></li>
+    <li class="absolute animate-float-square bg-[#BCCCDC] opacity-90 rounded-md"></li>
+    <li class="absolute animate-float-square bg-[#F8FAFC] opacity-90 rounded-sm"></li>
+    <li class="absolute animate-float-square bg-[#D9EAFD] opacity-90 rounded-lg"></li>
+    <li class="absolute animate-float-square bg-[#BCCCDC] opacity-90 rounded-md"></li>
+    <li class="absolute animate-float-square bg-[#F8FAFC] opacity-90 rounded-sm"></li>
     <li class="absolute animate-float-square bg-[#D9EAFD] opacity-90 rounded-lg"></li>
     <li class="absolute animate-float-square bg-[#BCCCDC] opacity-90 rounded-md"></li>
     <li class="absolute animate-float-square bg-[#F8FAFC] opacity-90 rounded-sm"></li>
   </ul>
 
   <!-- Tarjeta de Login -->
-  <div class="relative z-10 flex items-center justify-center min-h-screen">
-    <div class="bg-white shadow-xl rounded-xl p-10 w-full max-w-md text-center backdrop-blur-md bg-opacity-80">
-      <h2 class="text-3xl font-bold text-indigo-800 mb-2">HELLO & WELCOME</h2>
+  <div class="relative  flex items-center justify-center min-h-screen">
+    <div class="bg-white shadow-sm rounded-sm p-10 w-full max-w-md text-center backdrop-blur-md bg-opacity-20">
+      <h2 class="text-3xl font-bold text-indigo-800 mb-2">Hola</h2>
       <p class="text-sm text-gray-500 mb-6">Ingresa tus credenciales para continuar</p>
-
       <form [formGroup]="loginForm" (ngSubmit)="ingresar()" class="space-y-4 text-left">
         <!-- Input usuario -->
         <div>
-          <label for="username" class="text-sm font-medium text-gray-700">Usuario</label>
+          <label for="nombreUsuario" class="text-md font-medium text-gray-700">nombre Usuario </label>
           <input
             pInputText
-            id="username"
+            id="nombreUsuario"
             type="text"
             formControlName="nombreUsuario"
-            class="w-full mt-1"
+            class="w-sm mt-1 p-inputtext-xl block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
             placeholder="Ingresa tu usuario"
           />
         </div>
 
         <!-- Input contraseña -->
-        <div>
-          <label for="password" class="text-sm font-medium text-gray-700">Contraseña</label>
+        <div class="w-full">
+          <label for="password" class="text-md font-medium text-gray-700">Contraseña</label>
           <p-password
             id="password"
             formControlName="password"
             toggleMask
-            inputStyleClass="w-full mt-1"
+            class="mt-1 block w-full"
+            inputStyleClass="w-sm bg-black text-white p-2 rounded-md"
             placeholder="Contraseña"
           ></p-password>
         </div>

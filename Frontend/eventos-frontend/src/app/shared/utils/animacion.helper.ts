@@ -7,11 +7,11 @@ export class AnimacionHelper {
       const element = square as HTMLElement;
 
       Object.assign(element.style, {
-        width: `${Math.random() * (100 - 60) + 60}px`,
-        height: `${Math.random() * (100 - 60) + 60}px`,
+        width: `${Math.random() * (100 - 80) + 60}px`,
+        height: `${Math.random() * (100 - 20) + 60}px`,
         top: `${Math.random() * 100}%`,
         left: `${Math.random() * 100}%`,
-        animationDuration: `${Math.random() * (10 - 5) + 5}s`
+        animationDuration: `${Math.random() * (10 - 20) + 5}s`
       });
     });
   }

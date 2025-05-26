@@ -7,11 +7,8 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { AuthService, LoginRequest } from '../../core/services/auth.service.ts.service';
 import { Router } from '@angular/router';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
 import {AnimacionHelper} from '../../shared/utils/animacion.helper';
 
-gsap.registerPlugin(ScrollTrigger);
 
 
 @Component({
@@ -50,16 +47,7 @@ export class LoginComponent implements AfterViewInit  {
     const layers = document.querySelectorAll('.layer');
     layers.forEach((layer: Element) => {
       const speed = Number(layer.getAttribute('data-speed')) || 0.5;
-      gsap.to(layer, {
-        y: () => -(window.scrollY * speed),
-        ease: 'none',
-        scrollTrigger: {
-          trigger: layer,
-          start: 'top top',
-          scrub: true
-        }
       });
-    });
   }
 
   /**

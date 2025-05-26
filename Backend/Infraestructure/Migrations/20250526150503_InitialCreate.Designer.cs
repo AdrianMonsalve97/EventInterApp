@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infraestructure.Migrations
 {
     [DbContext(typeof(EventosDbContext))]
-    [Migration("20250526034314_InitialCreate")]
+    [Migration("20250526150503_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -105,8 +105,8 @@ namespace Infraestructure.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -115,8 +115,8 @@ namespace Infraestructure.Migrations
 
                     b.Property<string>("NombreUsuario")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()
@@ -129,15 +129,14 @@ namespace Infraestructure.Migrations
                     b.Property<int>("Rol")
                         .HasColumnType("int");
 
-                    b.Property<string>("TipoDocumentoCodigo")
+                    b.Property<string>("TipoDocumento")
                         .IsRequired()
+                        .HasMaxLength(5)
                         .HasColumnType("nvarchar(5)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TipoDocumentoCodigo");
-
-                    b.ToTable("Usuarios", (string)null);
+                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("Domain.ValueObjects.TipoDocumento", b =>
@@ -186,17 +185,6 @@ namespace Infraestructure.Migrations
                     b.Navigation("Evento");
 
                     b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Usuario", b =>
-                {
-                    b.HasOne("Domain.ValueObjects.TipoDocumento", "TipoDocumento")
-                        .WithMany()
-                        .HasForeignKey("TipoDocumentoCodigo")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TipoDocumento");
                 });
 
             modelBuilder.Entity("Domain.Entities.Evento", b =>

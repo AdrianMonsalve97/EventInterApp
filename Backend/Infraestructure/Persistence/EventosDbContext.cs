@@ -21,39 +21,24 @@ namespace Infraestructure.Persistence
         {
             base.OnModelCreating(modelBuilder);
 
-            // Tabla Usuarios
+
             modelBuilder.Entity<Usuario>(entity =>
             {
-                entity.ToTable("Usuarios");
-
                 entity.HasKey(u => u.Id);
-
-                entity.Property(u => u.Id)
-                      .ValueGeneratedNever();
-
-                entity.Property(u => u.Nombre)
-                      .IsRequired()
-                      .HasMaxLength(100);
-
-                entity.Property(u => u.NombreUsuario)
-                      .IsRequired()
-                      .HasMaxLength(50);
-
-                entity.Property(u => u.Email)
-                      .IsRequired()
-                      .HasMaxLength(100);
-
-                entity.Property(u => u.PasswordHash)
-                      .IsRequired();
-
-                entity.Property(u => u.PasswordSalt)
-                      .IsRequired();
-
-                entity.Property(u => u.Rol)
-                      .IsRequired();
-
-                entity.Property(u => u.DebeCambiarPassword)
-                      .IsRequired();
+                entity.Property(u => u.Id).ValueGeneratedNever();
+                entity.Property(u => u.NombreUsuario).IsRequired().HasMaxLength(100);
+                entity.Property(u => u.Email).IsRequired().HasMaxLength(150);
+                entity.Property(u => u.Nombre).IsRequired().HasMaxLength(100);
+                entity.Property(u => u.Nombre).IsRequired().HasMaxLength(100);
+                entity.Property(u => u.TipoDocumento)
+                    .HasConversion(
+                     v => v.Codigo,
+                     v => TipoDocumento.FromCodigo(v))
+                    .HasMaxLength(5);
+                entity.Property(u => u.PasswordHash).IsRequired();
+                entity.Property(u => u.PasswordSalt).IsRequired();
+                entity.Property(u => u.DebeCambiarPassword).IsRequired();
+                entity.Property(u => u.Rol).IsRequired();
             });
 
             // Tabla Eventos
