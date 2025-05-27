@@ -1,0 +1,4 @@
+:host ::ng-deep .p-menuitem-link.router-link-active {
+  background-color: #dbeafe !important;
+  font-weight: 600;
+}

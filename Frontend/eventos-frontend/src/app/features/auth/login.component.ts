@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angu
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
-import { AuthService, LoginRequest } from '../../core/services/auth.service.ts.service';
+import { AuthService, LoginRequest } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import {AnimacionHelper} from '../../shared/utils/animacion.helper';
 
@@ -27,6 +27,7 @@ import {AnimacionHelper} from '../../shared/utils/animacion.helper';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements AfterViewInit  {
+
   loading = signal(false);
   loginForm;
 
@@ -49,11 +50,17 @@ export class LoginComponent implements AfterViewInit  {
       const speed = Number(layer.getAttribute('data-speed')) || 0.5;
       });
   }
-  cuadros = Array.from({ length: 20 }, (_, i) => ({
-    clase: i % 3 === 0 ? 'rounded-lg' : i % 3 === 1 ? 'rounded-md' : 'rounded-sm',
-    color: i % 3 === 0 ? '#D9EAFD' : i % 3 === 1 ? '#BCCCDC' : '#F8FAFC',
-    opacidad: 0.9,
-  }));
+  cuadros = Array.from({ length: 45 }, (_, i) => {
+    const colores = ['#D9EAFD', '#0971d5', '#474f95', '#6f5097', '#C7D2FE', '#474F95FF'];
+    const opacidades = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6];
+
+    return {
+      clase: i % 3 === 0 ? 'rounded-xl' : i % 3 === 1 ? 'rounded-md' : 'rounded-sm',
+      color: colores[i % colores.length],
+      opacidad: opacidades[i % opacidades.length],
+    };
+  });
+
   /**
    * Maneja el proceso de inicio de sesión del usuario.
    * Verifica la validez del formulario, realiza la solicitud de inicio de sesión
@@ -85,7 +92,7 @@ export class LoginComponent implements AfterViewInit  {
         if (resultado.debeCambiarPassword) {
           this.router.navigate(['/cambiar-password']);
         } else {
-          this.router.navigate(['/eventos']);
+          this.router.navigate(['/crear-evento']);
         }
       },
       /**

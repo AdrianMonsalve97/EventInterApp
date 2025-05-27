@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/enviroment';
+import { environment } from '../../../environment/environment';
 
 export type LoginRequest = {
   nombreUsuario: string;
@@ -16,21 +16,20 @@ export type LoginResponse = {
   debeCambiarPassword: boolean;
 };
 
-
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly baseUrl = environment.apiUrl + '/auth';
+  private readonly baseUrl = environment.apiUrl + '/Auth';
 
   isAuthenticated = signal(false);
   rol = signal<string | null>(null);
   nombre = signal<string | null>(null);
+  usuarioId = signal<number | null>(null); // ✅ nuevo signal
 
   constructor(private http: HttpClient) {}
 
   login(data: LoginRequest) {
     return this.http.post<{ data: LoginResponse }>(`${this.baseUrl}/login`, data);
   }
-
 
   guardarSesion(res: LoginResponse) {
     localStorage.setItem('token', res.token);
@@ -39,6 +38,7 @@ export class AuthService {
     localStorage.setItem('rol', res.rol);
     localStorage.setItem('debeCambiarPassword', String(res.debeCambiarPassword));
 
+    this.usuarioId.set(res.idUsuario); // ✅
     this.isAuthenticated.set(true);
     this.rol.set(res.rol);
     this.nombre.set(res.nombre);
@@ -49,5 +49,23 @@ export class AuthService {
     this.isAuthenticated.set(false);
     this.rol.set(null);
     this.nombre.set(null);
+    this.usuarioId.set(null); // ✅
+  }
+
+  cargarSesionDesdeStorage() {
+    const id = localStorage.getItem('usuarioId');
+    const nombre = localStorage.getItem('nombre');
+    const rol = localStorage.getItem('rol');
+
+    if (id && nombre && rol) {
+      this.usuarioId.set(+id);
+      this.nombre.set(nombre);
+      this.rol.set(rol);
+      this.isAuthenticated.set(true);
+    }
+  }
+
+  getUsuarioId(): number {
+    return this.usuarioId() ?? +localStorage.getItem('usuarioId')!;
   }
 }

@@ -113,13 +113,16 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(policy =>
+    options.AddPolicy("AllowAll", policy =>
     {
-        policy.AllowAnyOrigin()
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
     });
 });
+
+
 
 
 
@@ -149,7 +152,7 @@ app.UseSwaggerUI(c =>
 
 
 app.UseHttpsRedirection();
-app.UseCors("AllowFrontend");
+app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

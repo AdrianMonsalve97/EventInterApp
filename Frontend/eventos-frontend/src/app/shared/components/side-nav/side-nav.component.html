@@ -1,0 +1,15 @@
+<div class="h-screen w-64 shadow-lg flex flex-col bg-white p-4">
+  <!-- Avatar del usuario -->
+  <div class="flex items-center space-x-3 mb-6">
+    <p-avatar
+      label="{{ avatarIniciales() }}"
+      shape="circle"
+      class="bg-blue-500 text-white font-bold"
+      size="large">
+    </p-avatar>
+    <span class="text-lg font-semibold truncate">{{ usuarioNombreCompleto() }}</span>
+  </div>
+
+  <!-- Menú lateral con submenús -->
+  <p-panelMenu [model]="items" class="w-full" [style.border]="false"></p-panelMenu>
+</div>

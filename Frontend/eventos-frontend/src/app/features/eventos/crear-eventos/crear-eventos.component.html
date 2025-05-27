@@ -1,0 +1,76 @@
+<!-- Toast Global -->
+<p-toast></p-toast>
+<!-- Formulario de creación de eventos -->
+<div class="p-6 max-w-2xl mx-auto bg-white/80 rounded-xl shadow space-y-6">
+  <h2 class="text-2xl font-bold text-center text-indigo-900">Crear Nuevo Evento</h2>
+
+  <form (ngSubmit)="crearEvento()" class="space-y-4">
+
+    <!-- Nombre del evento -->
+    <div>
+      <input pInputText
+             [ngModel]="nombre()"
+             (ngModelChange)="nombre.set($event)"
+             name="nombre"
+             placeholder="Nombre del evento"
+             class="w-xl bg-white text-white p-2 rounded-md w-full"/>
+    </div>
+
+    <!-- Descripción -->
+    <div>
+     <textarea pInputTextarea
+               [ngModel]="descripcion()"
+               (ngModelChange)="descripcion.set($event)"
+               name="descripcion"
+               class="w-full">
+     </textarea>
+    </div>
+
+    <!-- Fecha y hora -->
+    <div>
+      <p-calendar
+        [ngModel]="fechaHora()"
+        (ngModelChange)="fechaHora.set($event)"
+        name="fechaHora"
+        showIcon [showTime]="true"
+        hourFormat="24"
+        placeholder="Seleccione fecha y hora"
+        class="w-full">
+      </p-calendar>
+
+    </div>
+
+    <!-- Ubicación -->
+    <div>
+      <input pInputText
+             [ngModel]="ubicacion()"
+             (ngModelChange)="ubicacion.set($event)"
+             name="ubicacion"
+             placeholder="Ubicación del evento"
+             class="w-full" />
+
+    </div>
+
+    <!-- Capacidad máxima -->
+    <div>
+      <p-inputNumber
+        [ngModel]="capacidadMaxima()"
+        (ngModelChange)="capacidadMaxima.set($event)"
+        [min]="1"
+        name="capacidadMaxima"
+        placeholder="Capacidad máxima"
+        class="w-full">
+      </p-inputNumber>
+    </div>
+
+    <!-- Botón -->
+    <div class="pt-4">
+      <button pButton type="submit"
+              [disabled]="!formularioValido()" class="w-full w-full">
+        Crear Evento
+      </button>
+
+    </div>
+
+  </form>
+</div>

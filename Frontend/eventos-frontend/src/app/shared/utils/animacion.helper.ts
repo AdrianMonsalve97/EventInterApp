@@ -1,18 +1,32 @@
 export class AnimacionHelper {
   /**
-   * Aplica animación flotante a los elementos con clase `.animate-float-square`
+   * Aplica animación flotante aleatoria a los elementos con clase `.animate-float-square`
    */
   static animarCuadrados(): void {
     document.querySelectorAll('.animate-float-square').forEach(square => {
       const element = square as HTMLElement;
 
+      const width = this.random(60, 100);
+      const height = this.random(60, 100);
+      const top = this.random(0, 90); // para evitar que se salgan
+      const left = this.random(0, 90);
+      const duration = this.random(5, 30); // segundos
+
       Object.assign(element.style, {
-        width: `${Math.random() * (100 - 80) + 60}px`,
-        height: `${Math.random() * (100 - 20) + 60}px`,
-        top: `${Math.random() * 100}%`,
-        left: `${Math.random() * 100}%`,
-        animationDuration: `${Math.random() * (10 - 20) + 5}s`
+        width: `${width}px`,
+        height: `${height}px`,
+        top: `${top}%`,
+        left: `${left}%`,
+        animationDuration: `${duration}s`,
+        position: 'absolute',
+        animationName: 'bounce',
+        animationTimingFunction: 'ease-in-out',
+        animationIterationCount: 'infinite',
       });
     });
+  }
+
+  private static random(min: number, max: number): number {
+    return Math.random() * (max - min) + min;
   }
 }
