@@ -1,18 +1,13 @@
 <div class="relative h-screen  bg-gradient-to-b from-[#1e2a78] to-[#3d4ecb] font-montserrat">
   <!-- Fondo cuadrado animado -->
   <ul class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
-    <li class="absolute animate-float-square bg-[#D9EAFD] opacity-90 rounded-lg"></li>
-    <li class="absolute animate-float-square bg-[#BCCCDC] opacity-90 rounded-md"></li>
-    <li class="absolute animate-float-square bg-[#F8FAFC] opacity-90 rounded-sm"></li>
-    <li class="absolute animate-float-square bg-[#D9EAFD] opacity-90 rounded-lg"></li>
-    <li class="absolute animate-float-square bg-[#BCCCDC] opacity-90 rounded-md"></li>
-    <li class="absolute animate-float-square bg-[#F8FAFC] opacity-90 rounded-sm"></li>
-    <li class="absolute animate-float-square bg-[#D9EAFD] opacity-90 rounded-lg"></li>
-    <li class="absolute animate-float-square bg-[#BCCCDC] opacity-90 rounded-md"></li>
-    <li class="absolute animate-float-square bg-[#F8FAFC] opacity-90 rounded-sm"></li>
-    <li class="absolute animate-float-square bg-[#D9EAFD] opacity-90 rounded-lg"></li>
-    <li class="absolute animate-float-square bg-[#BCCCDC] opacity-90 rounded-md"></li>
-    <li class="absolute animate-float-square bg-[#F8FAFC] opacity-90 rounded-sm"></li>
+    <li
+      *ngFor="let cuadro of cuadros"
+      class="absolute animate-float-square"
+      [ngClass]="cuadro.clase"
+      [style.backgroundColor]="cuadro.color"
+      [style.opacity]="cuadro.opacidad"
+    ></li>
   </ul>
 
   <!-- Tarjeta de Login -->

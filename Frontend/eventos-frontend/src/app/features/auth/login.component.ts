@@ -49,7 +49,11 @@ export class LoginComponent implements AfterViewInit  {
       const speed = Number(layer.getAttribute('data-speed')) || 0.5;
       });
   }
-
+  cuadros = Array.from({ length: 20 }, (_, i) => ({
+    clase: i % 3 === 0 ? 'rounded-lg' : i % 3 === 1 ? 'rounded-md' : 'rounded-sm',
+    color: i % 3 === 0 ? '#D9EAFD' : i % 3 === 1 ? '#BCCCDC' : '#F8FAFC',
+    opacidad: 0.9,
+  }));
   /**
    * Maneja el proceso de inicio de sesión del usuario.
    * Verifica la validez del formulario, realiza la solicitud de inicio de sesión
