@@ -26,8 +26,8 @@ public sealed class ListarEventosPorUsuarioHandler : IRequestHandler<ListarEvent
                 i.Evento.FechaHora,
                 i.Evento.Ubicacion,
                 i.Evento.CapacidadMaxima,
-                _context.Inscripciones.Count(x => x.EventoId == i.EventoId),
-                true
+                i.Evento.CantidadInscritos,
+                i.Evento.EstaInscrito
             ))
             .ToListAsync(cancellationToken);
 

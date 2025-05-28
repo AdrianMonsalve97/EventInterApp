@@ -30,6 +30,9 @@ namespace Infraestructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CantidadInscritos")
+                        .HasColumnType("int");
+
                     b.Property<int>("CapacidadMaxima")
                         .HasColumnType("int");
 
@@ -37,6 +40,11 @@ namespace Infraestructure.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("EstaInscrito")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime>("FechaHora")
                         .HasColumnType("datetime2");

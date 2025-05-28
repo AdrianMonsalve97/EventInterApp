@@ -1,72 +1,82 @@
 <!-- Toast Global -->
 <p-toast></p-toast>
 <!-- Formulario de creación de eventos -->
-<div class="p-6 max-w-2xl mx-auto bg-white/80 rounded-xl shadow space-y-6">
-  <h2 class="text-2xl font-bold text-center text-indigo-900">Crear Nuevo Evento</h2>
+<div class="p-8 m-4 max-w-2xl mx-auto bg-black/95 rounded-xl border-round shadow-5 shadow space-y-6">
+  <h2 class="text-2xl font-bold text-center text-indigo-300">Crear Nuevo Evento</h2>
 
   <form (ngSubmit)="crearEvento()" class="space-y-4">
 
     <!-- Nombre del evento -->
-    <div>
-      <input pInputText
-             [ngModel]="nombre()"
-             (ngModelChange)="nombre.set($event)"
-             name="nombre"
-             placeholder="Nombre del evento"
-             class="w-xl bg-white text-white p-2 rounded-md w-full"/>
+    <div >
+      <p-floatlabel variant="in">
+        <input pInputText id="nombre" name="nombre" [ngModel]="nombre()" (ngModelChange)="nombre.set($event)" autocomplete="off"
+        [style]="{ backgroundColor: 'transparent', color: '#1740e1', width: '100%' }"
+        />
+        <label for="nombre">Nombre Evento</label>
+      </p-floatlabel>
     </div>
-
     <!-- Descripción -->
-    <div>
-     <textarea pInputTextarea
-               [ngModel]="descripcion()"
-               (ngModelChange)="descripcion.set($event)"
-               name="descripcion"
-               class="w-full">
-     </textarea>
+    <div class="mb-4 ">
+      <p-floatlabel variant="in" class="text-blue-900">
+        <textarea pInputTextarea
+                  id="descripcion"
+                  [ngModel]="descripcion()"
+                  (ngModelChange)="descripcion.set($event)"
+                  name="descripcion"
+                  class="w-full"
+                  [style]="{ backgroundColor: 'transparent', color: '#1a2551', width: '100%' }">
+        </textarea>
+        <label for="descripcion">Descripcion Evento</label>
+      </p-floatlabel>
     </div>
 
     <!-- Fecha y hora -->
     <div>
-      <p-calendar
+      <p-datePicker
         [ngModel]="fechaHora()"
         (ngModelChange)="fechaHora.set($event)"
         name="fechaHora"
         showIcon [showTime]="true"
         hourFormat="24"
         placeholder="Seleccione fecha y hora"
-        class="w-full">
-      </p-calendar>
+        class="w-full bg-transparent text-blue-900"
+        [style]="{ backgroundColor: 'transparent', color: 'rgba(26,37,81,0)', width: '100%' }"
+      >
+      </p-datePicker>
 
     </div>
 
     <!-- Ubicación -->
     <div>
-      <input pInputText
-             [ngModel]="ubicacion()"
-             (ngModelChange)="ubicacion.set($event)"
-             name="ubicacion"
-             placeholder="Ubicación del evento"
-             class="w-full" />
-
+      <p-floatlabel variant="in" class="text-blue-900">
+        <input pInputText id="ubicacion" [ngModel]="ubicacion()" (ngModelChange)="ubicacion.set($event)" name="ubicacion"
+               class="w-full bg-transparent text-blue-900"
+        />
+        <label for="ubicacion">Ubicación del evento</label>
+      </p-floatlabel>
     </div>
 
     <!-- Capacidad máxima -->
     <div>
       <p-inputNumber
+        id="capacidadMaxima"
         [ngModel]="capacidadMaxima()"
         (ngModelChange)="capacidadMaxima.set($event)"
-        [min]="1"
         name="capacidadMaxima"
-        placeholder="Capacidad máxima"
-        class="w-full">
+        class="w-full"
+        [style]="{ backgroundColor: 'rgba(240,244,255,0)', color: '#1a2551', width: '100%' }"
+      >
       </p-inputNumber>
+      <label for="capacidadMaxima">Capacidad Máxima</label>
     </div>
 
     <!-- Botón -->
     <div class="pt-4">
       <button pButton type="submit"
-              [disabled]="!formularioValido()" class="w-full w-full">
+              [disabled]="!formularioValido()" class="w-full w-full"
+              style="background-color: #6600ff; color: white; font-weight: bold;
+              padding: 0.75rem; border-radius: 0.5rem; border: none; cursor: pointer;"
+      >
         Crear Evento
       </button>
 
@@ -74,3 +84,4 @@
 
   </form>
 </div>
+

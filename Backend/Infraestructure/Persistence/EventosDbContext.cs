@@ -73,6 +73,9 @@ namespace Infraestructure.Persistence
                       .WithMany()
                       .HasForeignKey(e => e.IdCreador)
                       .OnDelete(DeleteBehavior.Restrict);
+                entity.Property(e => e.EstaInscrito)
+                        .IsRequired()
+                        .HasDefaultValue(false);
             });
 
             // Tabla Inscripciones

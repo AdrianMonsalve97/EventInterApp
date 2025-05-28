@@ -20,12 +20,11 @@ public sealed class ListarEventosHandler : IRequestHandler<ListarEventosQuery, L
 
     public async Task<List<EventoDisponibleDto>> Handle(ListarEventosQuery request, CancellationToken cancellationToken)
     {
-        var eventos = await _context.Eventos
+        List<Evento> eventos = await _context.Eventos
             .Include(e => e.Inscripciones)
             .ToListAsync(cancellationToken);
 
         List<EventoDisponibleDto> dtoList = _mapper.Map<List<EventoDisponibleDto>>(eventos);
-
 
         for (int i = 0; i < eventos.Count; i++)
         {

@@ -16,6 +16,7 @@ namespace Domain.Entities
         public Usuario Usuario { get; set; }
         public int EventoId { get; set; } // Cambiado de "IdEvento" a "EventoId" para que coincida con el error reportado.  
         public Evento Evento { get; set; }
+
         public DateTime FechaInscripcion { get; set; }
     }
 }

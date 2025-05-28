@@ -11,6 +11,8 @@ import {EventService} from '../../../core/services/event.service';
 import { ToastModule } from 'primeng/toast';
 import {AuthService} from '../../../core/services/auth.service';
 import {CrearEventoBody} from '../../../core/models/evento.model';
+import {FloatLabel} from 'primeng/floatlabel';
+import {DatePicker} from 'primeng/datepicker';
 
 
 @Component({
@@ -24,7 +26,9 @@ import {CrearEventoBody} from '../../../core/models/evento.model';
     CalendarModule,
     InputNumberModule,
     ButtonModule,
-    ToastModule
+    ToastModule,
+    FloatLabel,
+    DatePicker
   ],
   providers: [MessageService],
   templateUrl: './crear-eventos.component.html',
@@ -32,7 +36,7 @@ import {CrearEventoBody} from '../../../core/models/evento.model';
 })
 export class CrearEventosComponent {
   private eventService = inject(EventService);
-  private toast = inject(MessageService);
+  private message = inject(MessageService);
   private authService = inject(AuthService);
   nombre = signal('');
   descripcion = signal('');
@@ -41,17 +45,18 @@ export class CrearEventosComponent {
   capacidadMaxima = signal<number>(1);
    usuarioId = this.authService.getUsuarioId();
 
-  formularioValido = computed(() =>
-    this.nombre().trim() &&
-    this.descripcion().trim() &&
-    this.fechaHora() &&
-    this.ubicacion().trim() &&
-    this.capacidadMaxima() > 0
-  );
+  formularioValido = computed(() => {
+    const nombreValido = this.nombre().trim().length > 0;
+    const descripcionValida = this.descripcion().trim().length > 0;
+    const fechaHoraValida = this.fechaHora() !== null;
+    const ubicacionValida = this.ubicacion().trim().length > 0;
+    const capacidadMaximaValida = this.capacidadMaxima() > 0;
+    return nombreValido && descripcionValida && fechaHoraValida && ubicacionValida && capacidadMaximaValida;
+  });
 
   crearEvento() {
     if (!this.formularioValido()) {
-      this.toast.add({
+      this.message.add({
         severity: 'warn',
         summary: 'Formulario inválido',
         detail: 'Por favor completa todos los campos.',
@@ -69,24 +74,31 @@ export class CrearEventosComponent {
         capacidadMaxima: this.capacidadMaxima(),
         usuario: this.usuarioId
       },
-      usuario: this.usuarioId
+      usuario: this.usuarioId.toString()
     };
 
 
     this.eventService.crearEvento(request).subscribe({
       next: (resp) => {
-        console.log('RESPUESTA DEL BACKEND:', resp); // 👈 ¿Esto aparece?
-        this.toast.add({ severity: 'success', summary: 'OK', detail: resp?.data });
+        this.message.add({
+          severity: 'success',
+          summary: 'OK',
+          detail: resp?.data,
+          life: 3000,
+          styleClass: 'custom-success-toast'
+        });
+
       },
       error: (err) => {
-        console.error('ERROR DEL BACKEND:', err); // 👈 ¿Esto aparece?
-        this.toast.add({ severity: 'error', summary: 'Error', detail: err.error?.mensaje ?? 'Error interno' });
+        this.message.add({ severity: 'error', summary: 'Error', detail: err.error?.mensaje ?? 'Error interno',
+          life: 3000,
+          styleClass: 'custom-success-toast'
+        });
       }
     });
 
 
   }
-
   private limpiarFormulario() {
     this.nombre.set('');
     this.descripcion.set('');

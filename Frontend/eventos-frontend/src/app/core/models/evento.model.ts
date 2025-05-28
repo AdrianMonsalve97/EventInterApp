@@ -28,5 +28,5 @@ export interface CrearEventoRequest {
 
 export interface CrearEventoBody {
   data: CrearEventoRequest & { usuario: number };
-  usuario: number;
+  usuario: string;
 }

@@ -53,7 +53,9 @@ namespace Infraestructure.Migrations
                     FechaHora = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Ubicacion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     CapacidadMaxima = table.Column<int>(type: "int", nullable: false),
+                    CantidadInscritos = table.Column<int>(type: "int", nullable: false),
                     IdCreador = table.Column<int>(type: "int", nullable: false),
+                    EstaInscrito = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     UsuarioId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

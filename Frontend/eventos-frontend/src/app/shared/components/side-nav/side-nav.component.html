@@ -1,13 +1,16 @@
-<div class="h-screen w-64 shadow-lg flex flex-col bg-white p-4">
+<div class="h-screen w-64 shadow-lg flex flex-col bg-black-alpha-10 p-4">
   <!-- Avatar del usuario -->
   <div class="flex items-center space-x-3 mb-6">
     <p-avatar
       label="{{ avatarIniciales() }}"
       shape="circle"
-      class="bg-blue-500 text-white font-bold"
-      size="large">
+      class="bg-purple-900 text-white font-bold"
+      size="large"
+      [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }"
+      shape="circle"
+    >
     </p-avatar>
-    <span class="text-lg font-semibold truncate">{{ usuarioNombreCompleto() }}</span>
+    <span class="text-lg font-semibold text-white truncate">{{ usuarioNombreCompleto() }}</span>
   </div>
 
   <!-- Menú lateral con submenús -->

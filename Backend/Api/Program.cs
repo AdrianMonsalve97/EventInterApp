@@ -130,7 +130,7 @@ var app = builder.Build();
 
 // Middleware de errores y validación de header personalizado
 app.UseMiddleware<ErrorHandlingMiddleware>();
-app.UseMiddleware<ValidateClientHeaderMiddleware>();
+//app.UseMiddleware<ValidateClientHeaderMiddleware>();
 
 // Activar Swagger solo en desarrollo
 //if (app.Environment.IsDevelopment())

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infraestructure.Migrations
 {
     [DbContext(typeof(EventosDbContext))]
-    [Migration("20250526150503_InitialCreate")]
+    [Migration("20250527220635_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -33,6 +33,9 @@ namespace Infraestructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CantidadInscritos")
+                        .HasColumnType("int");
+
                     b.Property<int>("CapacidadMaxima")
                         .HasColumnType("int");
 
@@ -40,6 +43,11 @@ namespace Infraestructure.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("EstaInscrito")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime>("FechaHora")
                         .HasColumnType("datetime2");

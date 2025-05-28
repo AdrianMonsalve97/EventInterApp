@@ -1,4 +1,5 @@
-﻿public sealed record EventoDisponibleDto(
+﻿namespace Application.Common.DTOs.EventosDtos;
+public record EventoDisponibleDto(
     int Id,
     string Nombre,
     string Descripcion,

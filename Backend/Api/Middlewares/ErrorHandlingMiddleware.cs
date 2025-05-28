@@ -29,7 +29,7 @@ public class ErrorHandlingMiddleware
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "❌ Excepción no controlada: {Mensaje}", ex.Message);
+            _logger.LogError(ex, " Excepción no controlada: {Mensaje}", ex.Message);
             await EscribirRespuestaError(context, ex);
         }
     }

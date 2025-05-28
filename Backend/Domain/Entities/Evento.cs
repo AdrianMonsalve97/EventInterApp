@@ -8,6 +8,8 @@ public class Evento
     public DateTime FechaHora { get; set; }
     public required string Ubicacion { get; set; }
     public int CapacidadMaxima { get; set; }
+    public int CantidadInscritos { get; set; }
     public ICollection<Inscripcion> Inscripciones { get; set; }
-    public int IdCreador { get; set; } 
+    public int? IdCreador { get; set; }
+    public bool EstaInscrito { get; set; }
 }
