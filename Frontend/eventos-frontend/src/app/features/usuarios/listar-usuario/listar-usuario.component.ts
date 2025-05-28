@@ -21,9 +21,8 @@ export class ListarUsuarioComponent {
 
   constructor() {
     this.usuarioService.listarUsuarios().subscribe({
-      next: (resp) => {
-        console.log('RESPUESTA:', resp); // array plano
-        this.usuarios.set(resp.data); // ✅ aquí se soluciona todo
+      next: (usuarios) => {
+        this.usuarios.set(usuarios); // ✅ sin `.data` porque ya viene el array directamente
       },
       error: (err) => {
         console.error('Error cargando usuarios', err);
