@@ -1,4 +1,4 @@
-<div class="h-screen w-64 shadow-lg flex flex-col bg-black-alpha-10 p-4">
+<div class="h-screen w-64 shadow-lg flex flex-col bg-white p-4">
   <!-- Avatar del usuario -->
   <div class="flex items-center space-x-3 mb-6">
     <p-avatar
@@ -10,9 +10,8 @@
       shape="circle"
     >
     </p-avatar>
-    <span class="text-lg font-semibold text-white truncate">{{ usuarioNombreCompleto() }}</span>
+    <span class="text-lg font-semibold text-dark truncate">{{ usuarioNombreCompleto() }}</span>
   </div>
 
-  <!-- Menú lateral con submenús -->
   <p-panelMenu [model]="items" class="w-full" [style.border]="false"></p-panelMenu>
 </div>

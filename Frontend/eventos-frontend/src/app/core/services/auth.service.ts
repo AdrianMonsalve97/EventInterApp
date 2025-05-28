@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environment/environment';
+import {CrearUsuarioBody} from '../models/usuario.model';
 
 export type LoginRequest = {
   nombreUsuario: string;
@@ -68,4 +69,8 @@ export class AuthService {
   getUsuarioId(): number {
     return this.usuarioId() ?? +localStorage.getItem('usuarioId')!;
   }
+  crearUsuario(payload: CrearUsuarioBody) {
+    return this.http.post<{ data: string }>(`${this.baseUrl}/registrar`, payload);
+  }
+
 }

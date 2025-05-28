@@ -5,11 +5,9 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angu
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
-import { AuthService, LoginRequest } from '../../core/services/auth.service';
+import { AuthService, LoginRequest } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
-import {AnimacionHelper} from '../../shared/utils/animacion.helper';
-
-
+import {AnimacionHelper} from '../../../shared/utils/animacion.helper';
 
 @Component({
   selector: 'app-login',

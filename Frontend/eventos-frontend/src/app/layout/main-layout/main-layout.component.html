@@ -1,6 +1,15 @@
 <div class="flex min-h-screen">
-  <app-side-nav></app-side-nav>
-  <div class="flex-1 p-8 bg-black/90">
+  <app-side-nav class="z-10"></app-side-nav>
+  <div class="flex-1 p-8 bg-white/60">
     <router-outlet></router-outlet>
   </div>
+  <ul class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+    <li
+      *ngFor="let cuadro of cuadros"
+      class="absolute animate-float-square"
+      [ngClass]="cuadro.clase"
+      [style.backgroundColor]="cuadro.color"
+      [style.opacity]="cuadro.opacidad"
+    ></li>
+  </ul>
 </div>

@@ -16,7 +16,7 @@ import { AuthService } from '../../../core/services/auth.service';
   styleUrls: ['./side-nav.component.css']
 })
 export class SideNavComponent {
-  usuarioNombreCompleto = signal('Adrian Monsalve');
+  usuarioNombreCompleto = signal(localStorage.getItem('nombre') || 'Usuario Anónimo');
   private authService = inject(AuthService);
   private router = inject(Router);
   avatarIniciales = signal('');
@@ -68,7 +68,4 @@ export class SideNavComponent {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
-
-
-
 }

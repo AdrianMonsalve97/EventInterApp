@@ -19,8 +19,12 @@ public sealed class InscribirseEventoHandler : IRequestHandler<InscribirseEvento
 
     public async Task<RespuestaGeneral<string>> Handle(InscribirseEventoCommand request, CancellationToken cancellationToken)
     {
+        var todosLosEventos = await _context.Eventos.ToListAsync(cancellationToken);
+
         Evento? evento = await _context.Eventos
+            .IgnoreQueryFilters()
             .FirstOrDefaultAsync(e => e.Id == request.IdEvento, cancellationToken);
+
 
         if (evento is null)
             return RespuestaHelper.Error<string>("El evento no existe.");

@@ -1,8 +1,8 @@
 <!-- Toast Global -->
 <p-toast></p-toast>
 <!-- Formulario de creación de eventos -->
-<div class="p-8 m-4 max-w-2xl mx-auto bg-black/95 rounded-xl border-round shadow-5 shadow space-y-6">
-  <h2 class="text-2xl font-bold text-center text-indigo-300">Crear Nuevo Evento</h2>
+<div class="p-8 m-4 max-w-2xl mx-auto bg-white/90 rounded-xl border-round shadow-5 shadow space-y-6">
+  <h2 class="text-2xl font-bold text-center text-indigo-900">Crear Nuevo Evento</h2>
 
   <form (ngSubmit)="crearEvento()" class="space-y-4">
 
@@ -10,7 +10,7 @@
     <div >
       <p-floatlabel variant="in">
         <input pInputText id="nombre" name="nombre" [ngModel]="nombre()" (ngModelChange)="nombre.set($event)" autocomplete="off"
-        [style]="{ backgroundColor: 'transparent', color: '#1740e1', width: '100%' }"
+        [style]="{  color: '#1740e1', width: '100%' }"
         />
         <label for="nombre">Nombre Evento</label>
       </p-floatlabel>
@@ -24,7 +24,7 @@
                   (ngModelChange)="descripcion.set($event)"
                   name="descripcion"
                   class="w-full"
-                  [style]="{ backgroundColor: 'transparent', color: '#1a2551', width: '100%' }">
+                  [style]="{  color: '#1a2551', width: '100%' }">
         </textarea>
         <label for="descripcion">Descripcion Evento</label>
       </p-floatlabel>
