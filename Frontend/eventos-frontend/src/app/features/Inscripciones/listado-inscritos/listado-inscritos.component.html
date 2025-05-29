@@ -1,1 +1,32 @@
-<p>listado-inscritos works!</p>
+<p-toast></p-toast>
+
+<div class="p-4 max-w-5xl mx-auto bg-white rounded-xl shadow">
+  <h2 class="text-xl font-bold mb-4">Inscritos al Evento</h2>
+
+  <p-table [value]="inscritos()" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-i>
+      <tr>
+        <td>{{ i.nombre }}</td>
+        <td>{{ i.email }}</td>
+        <td>
+          <button
+            pButton
+            class="p-button-danger p-button-sm flex items-center gap-2"
+            (click)="cancelarInscripcion(i.idUsuario)"
+          >
+            <i class="pi pi-times"></i>
+            <span>Cancelar</span>
+          </button>
+        </td>
+
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

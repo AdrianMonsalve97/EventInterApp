@@ -27,7 +27,8 @@ public class ValidateClientHeaderMiddleware
             context.Request.Path.StartsWithSegments("/swagger") ||
             context.Request.Path.StartsWithSegments("/favicon") ||
             context.Request.Path.StartsWithSegments("/swagger-ui") ||
-            context.Request.Path.StartsWithSegments("/index.html"))
+            context.Request.Path.StartsWithSegments("/index.html")||
+            context.Request.Path.StartsWithSegments("/api/Auth/cambiarpassword"))
         {
             await _next(context);
             return;

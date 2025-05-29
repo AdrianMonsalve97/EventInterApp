@@ -68,6 +68,7 @@ public class AuthController : ControllerBase
     /// <param name="comando"></param>
     /// <returns></returns>
     [HttpPut("cambiarpassword")]
+    [AllowAnonymous]
     public async Task<IActionResult> CambiarPassword([FromBody] CambiarPasswordCommand comando)
     {
         RespuestaGeneral<string> respuesta = await _mediator.Send(comando);
@@ -78,7 +79,7 @@ public class AuthController : ControllerBase
     /// Recupera la contraseña y envía una nueva temporal al correo.
     /// </summary>
     [HttpPost("recuperarpassword")]
-    [AllowAnonymous]
+
     public async Task<IActionResult> RecuperarPassword([FromBody] RecuperarPasswordCommand comando)
     {
         var respuesta = await _mediator.Send(comando);
