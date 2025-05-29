@@ -1,12 +1,18 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
-import {CrearEventoBody, CrearEventoRequest, EventoResponse, EventoResumen} from '../models/evento.model';
+import {
+  CrearEventoBody,
+  CrearEventoRequest, EditarEventoRequest,
+  EventoDetalle,
+  EventoResponse,
+  EventoResumen
+} from '../models/evento.model';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
-import {environment} from '../../../environment/environment';
-import {RespuestaGeneral} from '../models/respuesta-general';
-import {UsuarioListadoDto} from '../models/usuario.model';
+import { environment } from '../../../environment/environment';
+import { RespuestaGeneral } from '../models/respuesta-general';
+import { UsuarioListadoDto } from '../models/usuario.model';
 
 @Injectable({ providedIn: 'root' })
 export class EventService {
@@ -30,30 +36,29 @@ export class EventService {
     this.recargaEventos.update(v => v + 1);
   }
 
-  // Eventos en los que el usuario está inscrito
-  readonly misEventos = toSignal(
-    this.http.get<EventoResponse[]>(`${this.apiUrl}/mis-eventos`).pipe(
-      catchError(() => of([]))
-    ),
-    { initialValue: [] }
-  );
-
   crearEvento(payload: CrearEventoBody): Observable<RespuestaGeneral<string>> {
     return this.http.post<RespuestaGeneral<string>>(`${this.apiUrl}/crear`, payload);
   }
-
 
   inscribirse(idEvento: number): Observable<any> {
     return this.http.post(`${this.apiUrl}/inscribirse`, { idEvento });
   }
 
-  editarEvento(id: number, cambios: Partial<CrearEventoRequest>): Observable<any> {
-    return this.http.put(`${this.apiUrl}/editar`, { id, ...cambios });
+  listarMisEventos(): Observable<EventoResponse[]> {
+    const id = localStorage.getItem('usuarioId');
+    if (!id) throw new Error('No hay usuario logueado');
+
+    return this.http.get<EventoResponse[]>(`${this.apiUrl}/mis-eventos?idUsuario=${id}`);
   }
 
+
+  editarEvento(request: EditarEventoRequest): Observable<any> {
+    return this.http.put(`${this.apiUrl}/editar`, request);
+  }
   eliminarEvento(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/eliminar?id=${id}`);
   }
+
   listarEventosResumen(): Observable<EventoResumen[]> {
     return this.http.get<EventoResumen[]>(`${this.apiUrl}/nombres`);
   }
@@ -62,4 +67,7 @@ export class EventService {
     return this.http.get<UsuarioListadoDto[]>(`${this.apiUrl}/asistentes?idEvento=${idEvento}`);
   }
 
+  obtenerEventoPorId(id: number): Observable<EventoDetalle> {
+    return this.http.get<EventoDetalle>(`${this.apiUrl}/detalle/${id}`);
+  }
 }

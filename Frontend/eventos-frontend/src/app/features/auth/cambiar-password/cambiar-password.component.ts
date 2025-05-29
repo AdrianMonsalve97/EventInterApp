@@ -1,26 +1,63 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { FormBuilder, Validators, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ToastModule } from 'primeng/toast';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
+
+import { Router } from '@angular/router';
+import {AuthService} from '../../../core/services/auth.service';
+import {CambiarPasswordRequest} from '../../../core/models/password.model';
 
 @Component({
   selector: 'app-cambiar-password',
-  imports: [],
-  templateUrl: './cambiar-password.component.html',
-  styleUrl: './cambiar-password.component.css'
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, InputTextModule, ButtonModule, ToastModule],
+  providers: [MessageService],
+  templateUrl: './cambiar-password.component.html'
 })
 export class CambiarPasswordComponent {
-  cambiarPassword = 'hola';
-  constructor() {
-    // Aquí puedes inicializar cualquier lógica necesaria
+  private fb = inject(FormBuilder);
+  private auth = inject(AuthService);
+  private toast = inject(MessageService);
+  private router = inject(Router);
+
+  cargando = signal(false);
+
+  form = this.fb.group({
+    usuarioId: [this.auth.usuarioId(), Validators.required],
+    passwordActual: ['', Validators.required],
+    passwordNueva: ['', [Validators.required, Validators.minLength(8)]],
+    confirmar: ['', Validators.required]
+  }, { validators: CambiarPasswordComponent.passwordsIguales });
+
+  static passwordsIguales(group: FormGroup) {
+    const nueva = group.get('passwordNueva')?.value;
+    const confirmar = group.get('confirmar')?.value;
+    return nueva === confirmar ? null : { noCoinciden: true };
   }
 
-  onSubmit() {
-    // Lógica para cambiar la contraseña
-    console.log('Contraseña cambiada:', this.cambiarPassword);
-    // Aquí podrías llamar a un servicio para actualizar la contraseña en el backend
-  }
+  cambiarPassword() {
+    if (this.form.invalid) return;
 
-  cancelar() {
-    // Lógica para cancelar el cambio de contraseña
-    console.log('Cambio de contraseña cancelado');
-    // Aquí podrías redirigir al usuario a otra página o limpiar el formulario
+    this.cargando.set(true);
+
+    const payload: CambiarPasswordRequest = {
+      idUsuario: this.form.value.usuarioId,
+      passwordActual: this.form.value.passwordActual!,
+      passwordNueva: this.form.value.passwordNueva!
+    };
+
+    this.auth.cambiarPassword(payload).subscribe({
+      next: () => {
+        this.toast.add({ severity: 'success', summary: 'Contraseña actualizada' });
+        this.router.navigate(['/dashboard']);
+      },
+      error: () => {
+        this.toast.add({ severity: 'error', summary: 'Error', detail: 'No se pudo cambiar la contraseña' });
+        this.cargando.set(false);
+      }
+    });
   }
 }

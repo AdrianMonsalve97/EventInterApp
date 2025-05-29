@@ -2,6 +2,8 @@ import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environment/environment';
 import {CrearUsuarioBody} from '../models/usuario.model';
+import {CambiarPasswordRequest} from '../models/password.model';
+import {Observable} from 'rxjs';
 
 export type LoginRequest = {
   nombreUsuario: string;
@@ -72,5 +74,20 @@ export class AuthService {
   crearUsuario(payload: CrearUsuarioBody) {
     return this.http.post<{ data: string }>(`${this.baseUrl}/registrar`, payload);
   }
+  cambiarPassword(payload: CambiarPasswordRequest): Observable<any> {
+    return this.http.put(`${this.baseUrl}/cambiarpassword`, payload);
+  }
+  get debeCambiarPassword(): boolean {
+    return localStorage.getItem('debeCambiarPassword') === 'true';
+  }
+  estaAutenticado(): boolean {
+    const token = localStorage.getItem('token');
+    if (!token) return false;
+
+    const exp = JSON.parse(atob(token.split('.')[1])).exp;
+    return Date.now() / 1000 < exp;
+  }
+
+
 
 }

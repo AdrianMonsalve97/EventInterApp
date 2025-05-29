@@ -36,8 +36,7 @@ export class SideNavComponent {
       label: 'Inscripciones',
       icon: 'pi pi-check-square',
       items: [
-        { label: 'Usuarios Inscritos', icon: 'pi pi-users', routerLink: '/inscripciones/evento/1' },
-        { label: 'Cancelar Inscripción', icon: 'pi pi-times', routerLink: '/inscripciones/cancelar' }
+        { label: 'Usuarios Inscritos', icon: 'pi pi-users', routerLink: '/inscripciones' },
       ]
     },
     {

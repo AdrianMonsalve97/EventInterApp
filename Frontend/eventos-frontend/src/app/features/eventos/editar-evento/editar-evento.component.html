@@ -1,1 +1,90 @@
-<p>editar-evento works!</p>
+<p-toast></p-toast>
+
+<div class="p-4 max-w-4xl mx-auto bg-white rounded-xl shadow-md">
+  <h2 class="text-2xl font-bold text-center mb-6">Editar Evento</h2>
+
+  <div class="mb-6">
+    <label class="font-medium">Seleccione un evento</label>
+    <p-dropdown
+      [options]="eventosDisponibles()"
+      optionLabel="nombre"
+      optionValue="id"
+      [(ngModel)]="eventoIdSeleccionado"
+      (onChange)="onSeleccionarEvento($event.value)"
+      placeholder="Seleccione un evento"
+      class="w-full mt-1"
+    />
+
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="guardarCambios()" class="space-y-4">
+    <div>
+      <label class="font-medium">Nombre del evento</label>
+      <input type="text" class="p-inputtext w-full mt-1" formControlName="nombre" />
+    </div>
+
+    <div>
+      <label class="font-medium">Descripción</label>
+      <textarea rows="3" class="p-inputtext w-full mt-1" formControlName="descripcion"></textarea>
+    </div>
+
+    <div>
+      <label class="font-medium">Fecha y hora</label>
+      <p-calendar
+        formControlName="fechaHora"
+        [showTime]="true"
+        showIcon="true"
+        inputClass="w-full mt-1"
+      />
+    </div>
+
+    <div>
+      <label class="font-medium">Ubicación</label>
+      <input type="text" class="p-inputtext w-full mt-1" formControlName="ubicacion" />
+    </div>
+
+    <div>
+      <label class="font-medium">Capacidad Máxima</label>
+      <p-inputNumber
+        formControlName="capacidadMaxima"
+        [min]="1"
+        inputClass="w-full mt-1"
+      />
+    </div>
+
+    <div class="text-center pt-4">
+      <button
+        pButton
+        type="submit"
+        [disabled]="form.invalid || cargando() || !eventoCargado() || !eventoSeleccionadoManual()"
+        class="flex items-center justify-center gap-2"
+      >
+        <i class="pi pi-save"></i>
+        <span>Guardar Cambios</span>
+      </button>
+    </div>
+  </form>
+
+  <div class="mt-10" *ngIf="asistentes().length > 0">
+    <h3 class="text-xl font-semibold mb-2">Asistentes registrados</h3>
+    <p-table
+      [value]="asistentes()"
+      [paginator]="true"
+      [rows]="5"
+      responsiveLayout="scroll"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-asistente>
+        <tr>
+          <td>{{ asistente.nombre }}</td>
+          <td>{{ asistente.email }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

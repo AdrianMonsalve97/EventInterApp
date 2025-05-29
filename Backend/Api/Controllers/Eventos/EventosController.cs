@@ -5,6 +5,7 @@ using Application.Eventos.Commands.CreateEvento;
 using Application.Eventos.Commands.EditarEvento;
 using Application.Eventos.Commands.EliminarEvento;
 using Application.Eventos.Commands.InscribirseEvento;
+using Application.Eventos.Queries.DetalleEvento;
 using Application.Eventos.Queries.ListarEventos;
 using Application.Eventos.Queries.ListarIdXEvento;
 using Application.Eventos.Queries.ListarPorUsuario;
@@ -83,6 +84,14 @@ public class EventosController : ControllerBase
         List<EventoIdNombreDto> eventos = await _mediator.Send(new ListarIdXEventoQuery());
         return Ok(eventos);
     }
+
+    [HttpGet("detalle/{id}")]
+    public async Task<ActionResult<DetalleEventoDto>> DetalleEvento(int id)
+    {
+        var resultado = await _mediator.Send(new DetalleEventoQuery(id));
+        return Ok(resultado);
+    }
+
 
 
 }
