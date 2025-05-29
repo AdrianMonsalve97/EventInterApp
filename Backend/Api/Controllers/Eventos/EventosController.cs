@@ -1,10 +1,12 @@
 ﻿using Api.Security;
+using Application.Common.DTOs.EventosDtos;
 using Application.Eventos.Commands.CrearEvento;
 using Application.Eventos.Commands.CreateEvento;
 using Application.Eventos.Commands.EditarEvento;
 using Application.Eventos.Commands.EliminarEvento;
 using Application.Eventos.Commands.InscribirseEvento;
 using Application.Eventos.Queries.ListarEventos;
+using Application.Eventos.Queries.ListarIdXEvento;
 using Application.Eventos.Queries.ListarPorUsuario;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -74,4 +76,13 @@ public class EventosController : ControllerBase
         var respuesta = await _mediator.Send(comando);
         return respuesta.Error ? BadRequest(respuesta) : Ok(respuesta);
     }
+
+    [HttpGet("nombres")]
+    public async Task<IActionResult> ObtenerEventosIdNombre()
+    {
+        List<EventoIdNombreDto> eventos = await _mediator.Send(new ListarIdXEventoQuery());
+        return Ok(eventos);
+    }
+
+
 }
