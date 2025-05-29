@@ -4,6 +4,7 @@ import { AuthGuard } from './core/guards/auth-guard.guard';
 import { LoginComponent } from './features/auth/login/login.component';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import {USUARIO_ROUTES} from './features/usuarios/usuario.routes.ts';
+import {eventoRoutes} from './features/eventos/evento.routes';
 
 
 export const routes: Routes = [
@@ -13,9 +14,9 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: 'crear-evento', component: CrearEventosComponent },
       ...USUARIO_ROUTES,
-      { path: '', redirectTo: 'crear-evento', pathMatch: 'full' },
+      ...eventoRoutes,
+      { path: '', redirectTo: 'eventos-disponible-disponibles', pathMatch: 'full' },
     ]
   }
 ];

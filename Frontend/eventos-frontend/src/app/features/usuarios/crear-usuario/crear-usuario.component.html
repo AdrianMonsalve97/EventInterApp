@@ -8,13 +8,13 @@
     <!-- Nombre de Usuario -->
     <div>
       <p-float-label>
-      <label for="nombreUsuario" class="block font-medium mb-1">Nombre de Usuario</label>
-      <input pInputText
-             id="nombreUsuario"
-             name="nombreUsuario"
-             [ngModel]="nombreUsuario()"
-             (ngModelChange)="nombreUsuario.set($event)"
-             class="w-full" />
+        <label for="nombreUsuario" class="block font-medium mb-1">Nombre de Usuario</label>
+        <input pInputText
+               id="nombreUsuario"
+               name="nombreUsuario"
+               [ngModel]="nombreUsuario()"
+               (ngModelChange)="nombreUsuario.set($event)"
+               class="w-full" />
       </p-float-label>
     </div>
     <!-- Documento (ID del usuario) -->
@@ -34,27 +34,27 @@
     <!-- Nombre -->
     <div>
       <p-float-label>
-      <label for="nombre" class="block font-medium mb-1">Nombre completo</label>
-      <input pInputText
-             id="nombre"
-             name="nombre"
-             [ngModel]="nombre()"
-             (ngModelChange)="nombre.set($event)"
-             class="w-full" />
-        </p-float-label>
+        <label for="nombre" class="block font-medium mb-1">Nombre completo</label>
+        <input pInputText
+               id="nombre"
+               name="nombre"
+               [ngModel]="nombre()"
+               (ngModelChange)="nombre.set($event)"
+               class="w-full" />
+      </p-float-label>
     </div>
 
     <!-- Email -->
     <div>
       <p-float-label>
-      <label for="email" class="block font-medium mb-1">Correo electrónico</label>
-      <input pInputText
-             id="email"
-             name="email"
-             [ngModel]="email()"
-             (ngModelChange)="email.set($event)"
-             class="w-full" />
-        </p-float-label>
+        <label for="email" class="block font-medium mb-1">Correo electrónico</label>
+        <input pInputText
+               id="email"
+               name="email"
+               [ngModel]="email()"
+               (ngModelChange)="email.set($event)"
+               class="w-full" />
+      </p-float-label>
     </div>
 
     <!-- Rol (solo si es administrador) -->
@@ -73,10 +73,15 @@
 
       </p-float-label>
     </div>
-
-    <!-- Botón -->
     <div class="pt-4">
-      <button pButton type="submit" p-label="Crear Usuario" class="w-full"></button>
+      <button pButton type="submit"
+               class="w-full w-full"
+              style="background-color: #6600ff; color: white; font-weight: bold;
+              padding: 0.75rem; border-radius: 0.5rem; border: none; cursor: pointer;"
+      >
+        Crear Evento
+      </button>
+
     </div>
   </form>
 </div>

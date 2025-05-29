@@ -27,7 +27,7 @@ export class SideNavComponent {
       icon: 'pi pi-calendar',
       items: [
         { label: 'Crear Evento', icon: 'pi pi-plus-circle', routerLink: '/crear-evento' },
-        { label: 'Eventos Disponibles', icon: 'pi pi-list', routerLink: '/eventos' },
+        { label: 'Eventos Disponibles', icon: 'pi pi-list', routerLink: '/eventos-disponible' },
         { label: 'Mis Eventos', icon: 'pi pi-user', routerLink: '/mis-eventos' },
         { label: 'Editar Evento', icon: 'pi pi-pencil', routerLink: '/editar-evento' }
       ]
@@ -46,7 +46,7 @@ export class SideNavComponent {
       items: [
         { label: 'Crear Usuario', icon: 'pi pi-user-plus', routerLink: '/usuarios/crear' },
         { label: 'Listar Usuarios', icon: 'pi pi-list', routerLink: '/usuarios' },
-        { label: 'Asistentes', icon: 'pi pi-user', routerLink: '/usuarios/asistentes' }
+        { label: 'Asistentes', icon: 'pi pi-user', routerLink: '/asistentes' }
       ]
     },
     {

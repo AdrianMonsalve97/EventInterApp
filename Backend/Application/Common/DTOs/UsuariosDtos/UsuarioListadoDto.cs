@@ -5,5 +5,6 @@ public sealed record UsuarioListadoDto(
     string Nombre,
     string NombreUsuario,
     string Email,
-    string Rol
+    string Rol,
+    int IdEvento
 );

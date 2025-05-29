@@ -1,1 +1,34 @@
-<p>asistentes-usuario works!</p>
+<div class="p-6 max-w-4xl mx-auto space-y-6">
+  <h2 class="text-xl font-bold text-center">Listado de Asistentes por Evento</h2>
+
+  <!-- Dropdown de eventos -->
+  <p-dropdown
+    [options]="eventos()"
+    optionLabel="nombre"
+    optionValue="id"
+    placeholder="Selecciona un evento"
+    [ngModel]="eventoSeleccionadoId()"
+    (ngModelChange)="onEventoSeleccionadoChange($event)"
+    class="w-full">
+  </p-dropdown>
+
+  <!-- Tabla de asistentes -->
+  <p-table [value]="asistentes()" class="mt-6">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nombre</th>
+        <th>Usuario</th>
+        <th>Email</th>
+        <th>Rol</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-asistente>
+      <tr>
+        <td>{{ asistente.nombre }}</td>
+        <td>{{ asistente.nombreUsuario }}</td>
+        <td>{{ asistente.email }}</td>
+        <td>{{ asistente.rol }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

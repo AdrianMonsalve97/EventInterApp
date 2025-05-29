@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Application.Usuarios.Queries.ListarAsistentes;
 
-public sealed record ListarAsistentesQuery(int IdSolicitante) : IRequest<List<UsuarioListadoDto>>;
+public sealed record ListarAsistentesQuery(int IdEvento) : IRequest<List<UsuarioListadoDto>>;

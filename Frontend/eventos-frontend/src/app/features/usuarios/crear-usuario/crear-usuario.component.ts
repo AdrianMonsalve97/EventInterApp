@@ -12,7 +12,7 @@ import {FloatLabel} from 'primeng/floatlabel';
 import {Select} from 'primeng/select';
 import {CrearUsuarioBody} from '../../../core/models/usuario.model';
 
-@Component({
+ @Component({
   selector: 'app-crear-usuario',
   standalone: true,
   imports: [

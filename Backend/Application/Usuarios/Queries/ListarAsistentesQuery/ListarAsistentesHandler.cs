@@ -1,6 +1,5 @@
 ﻿using Application.Common.DTOs.UsuariosDtos;
 using Domain.Entities;
-using Domain.Enums;
 using Infraestructure.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -18,21 +17,19 @@ public sealed class ListarAsistentesHandler : IRequestHandler<ListarAsistentesQu
 
     public async Task<List<UsuarioListadoDto>> Handle(ListarAsistentesQuery request, CancellationToken cancellationToken)
     {
-        Usuario? solicitante = await _context.Usuarios.FindAsync(new object[] { request.IdSolicitante }, cancellationToken);
-        if (solicitante is null) return [];
-
-        IQueryable<Usuario> query = solicitante.Rol == RolUsuario.Administrador
-            ? _context.Usuarios
-            : _context.Usuarios.Where(u => u.Rol == RolUsuario.Asistente);
-
-        return await query
-            .Select(u => new UsuarioListadoDto(
-                u.Id,
-                u.Nombre,
-                u.NombreUsuario,
-                u.Email,
-                u.Rol.ToString()
+        var asistentes = await _context.Inscripciones
+            .Where(i => i.EventoId == request.IdEvento)
+            .Include(i => i.Usuario)
+            .Select(i => new UsuarioListadoDto(
+                i.Usuario.Id,
+                i.Usuario.Nombre,
+                i.Usuario.NombreUsuario,
+                i.Usuario.Email,
+                i.Usuario.Rol.ToString(),
+                i.EventoId
             ))
             .ToListAsync(cancellationToken);
+
+        return asistentes;
     }
 }

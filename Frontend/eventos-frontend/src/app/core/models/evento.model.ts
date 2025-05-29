@@ -24,9 +24,11 @@ export interface CrearEventoRequest {
   capacidadMaxima: number;
   usuario: number;
 }
-
-
 export interface CrearEventoBody {
   data: CrearEventoRequest & { usuario: number };
   usuario: string;
+}
+export interface EventoResumen {
+  id: number;
+  nombre: string;
 }

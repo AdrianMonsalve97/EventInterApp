@@ -1,4 +1,5 @@
-﻿using Application.Usuarios.Commands.ActualizarUsuario;
+﻿using Application.Common.DTOs.UsuariosDtos;
+using Application.Usuarios.Commands.ActualizarUsuario;
 using Application.Usuarios.Queries.ListarAsistentes;
 using Application.Usuarios.Queries.ListarTodosUsuarios;
 using MediatR;
@@ -36,9 +37,9 @@ public class UsuariosController : ControllerBase
     /// Lista solo los usuarios asistentes (accesible por cualquier rol).
     /// </summary>
     [HttpGet("asistentes")]
-    public async Task<IActionResult> ListarAsistentes([FromQuery] int idSolicitante)
+    public async Task<IActionResult> ListarAsistentes([FromQuery] int IdEvento)
     {
-        var respuesta = await _mediator.Send(new ListarAsistentesQuery(idSolicitante));
+        List<UsuarioListadoDto> respuesta = await _mediator.Send(new ListarAsistentesQuery(IdEvento));
         return Ok(respuesta);
     }
 

@@ -20,3 +20,19 @@ export interface CrearUsuarioBody {
   data: CrearUsuarioCommand;
   usuario: string;
 }
+
+export interface UsuarioAsistente {
+  id: number;
+  nombre: string;
+  nombreUsuario: string;
+  email: string;
+  rol: 'Asistente';
+}
+export interface UsuarioListadoDto {
+  id: number;
+  nombre: string;
+  nombreUsuario: string;
+  email: string;
+  rol: string;
+  idEvento: number;
+}

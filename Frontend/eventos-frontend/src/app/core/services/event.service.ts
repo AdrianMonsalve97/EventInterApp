@@ -1,11 +1,12 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
-import {CrearEventoBody, CrearEventoRequest, EventoResponse} from '../models/evento.model';
+import {CrearEventoBody, CrearEventoRequest, EventoResponse, EventoResumen} from '../models/evento.model';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import {environment} from '../../../environment/environment';
 import {RespuestaGeneral} from '../models/respuesta-general';
+import {UsuarioListadoDto} from '../models/usuario.model';
 
 @Injectable({ providedIn: 'root' })
 export class EventService {
@@ -53,4 +54,12 @@ export class EventService {
   eliminarEvento(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/eliminar?id=${id}`);
   }
+  listarEventosResumen(): Observable<EventoResumen[]> {
+    return this.http.get<EventoResumen[]>(`${this.apiUrl}/nombres`);
+  }
+
+  listarAsistentesPorEvento(idEvento: number): Observable<UsuarioListadoDto[]> {
+    return this.http.get<UsuarioListadoDto[]>(`${this.apiUrl}/asistentes?idEvento=${idEvento}`);
+  }
+
 }

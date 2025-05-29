@@ -1,0 +1,38 @@
+<div class="p-6 max-w-5xl mx-auto space-y-6">
+  <h2 class="text-2xl font-bold text-center text-indigo-900">Eventos Disponibles</h2>
+
+  <p-table [value]="eventos()" class="p-datatable-sm">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Fecha y Hora</th>
+        <th>Ubicación</th>
+        <th>Capacidad</th>
+        <th>Inscritos</th>
+        <th>¿Inscrito?</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-evento>
+      <tr>
+        <td>{{ evento.nombre }}</td>
+        <td>{{ evento.descripcion }}</td>
+        <td>{{ evento.fechaHora | date:'short' }}</td>
+        <td>{{ evento.ubicacion }}</td>
+        <td>{{ evento.capacidadMaxima }}</td>
+        <td>{{ evento.cantidadInscritos }}</td>
+        <td>
+          <span [class.text-green-600]="evento.inscrito" [class.text-red-500]="!evento.inscrito">
+            {{ evento.inscrito ? 'Sí' : 'No' }}
+          </span>
+        </td>
+        <td>
+          <button *ngIf="!evento.inscrito"
+                  pButton icon="pi pi-check" class="p-button-sm p-button-success"
+                  (click)="inscribirse(evento.id)" label="Inscribirme"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
