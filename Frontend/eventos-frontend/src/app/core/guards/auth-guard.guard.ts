@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { CanActivateFn, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
-export const AuthGuard: CanActivateFn = () => {
+export const AuthGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
   const auth = inject(AuthService);
   const router = inject(Router);
 
@@ -13,6 +13,16 @@ export const AuthGuard: CanActivateFn = () => {
 
   if (auth.debeCambiarPassword) {
     router.navigate(['/cambiar-password']);
+    return false;
+  }
+
+  const rolesPermitidos: string[] = route.data['roles'];
+  const rolUsuario = auth.rol();
+
+  if (rolesPermitidos && !rolesPermitidos.includes(<string>rolUsuario)) {
+    router.navigate(['/login']);
+    console.log(`Acceso denegado. Rol requerido: ${rolesPermitidos.join(', ')}, Rol del usuario: ${rolUsuario}`);
+    auth.logout();
     return false;
   }
 

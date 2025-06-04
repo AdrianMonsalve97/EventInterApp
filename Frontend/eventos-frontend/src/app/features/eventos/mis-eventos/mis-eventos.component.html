@@ -1,7 +1,18 @@
+<p-toast #toast></p-toast>
 <div class="p-6 max-w-5xl mx-auto space-y-6">
-  <h2 class="text-2xl font-bold text-center text-indigo-900">Mis Eventos Inscritos</h2>
+  <h2 class="text-2xl font-bold text-center text-indigo-900">Mis Eventos</h2>
 
-  <p-table [value]="eventosInscritos()" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+  <p *ngIf="eventosInscritos().length === 0" class="text-center text-gray-600">
+    Aún no te has inscrito a ningún evento.
+  </p>
+
+  <p-table
+    *ngIf="eventosInscritos().length > 0"
+    [value]="eventosInscritos()"
+    [paginator]="true"
+    [rows]="5"
+    responsiveLayout="scroll"
+  >
     <ng-template pTemplate="header">
       <tr>
         <th>Nombre</th>
@@ -9,6 +20,7 @@
         <th>Fecha</th>
         <th>Ubicación</th>
         <th>Capacidad</th>
+        <th>Acciones</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-evento>
@@ -18,6 +30,15 @@
         <td>{{ evento.fechaHora | date:'short' }}</td>
         <td>{{ evento.ubicacion }}</td>
         <td>{{ evento.capacidadMaxima }}</td>
+        <td>
+          <button
+            pButton
+            icon="pi pi-times"
+            class="p-button-sm p-button-danger"
+            (click)="cancelarInscripcion(evento.id)"
+            label="Cancelar"
+          ></button>
+        </td>
       </tr>
     </ng-template>
   </p-table>

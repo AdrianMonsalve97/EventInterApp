@@ -70,7 +70,7 @@ public class EventosController : ControllerBase
     public async Task<IActionResult> MisEventos([FromQuery] int idUsuario)
         => Ok(await _mediator.Send(new ListarEventosPorUsuarioQuery(idUsuario)));
 
-    [AuthorizeRole("Administrador, Expositor")]
+    //[AuthorizeRole("Administrador, Expositor")]
     [HttpDelete("eliminar")]
     public async Task<IActionResult> EliminarEvento([FromBody] EliminarEventoCommand comando)
     {

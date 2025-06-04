@@ -16,10 +16,10 @@ export class MainLayoutComponent implements AfterViewInit {
     AnimacionHelper.animarCuadrados();
     const layers = document.querySelectorAll('.layer');
     layers.forEach((layer: Element) => {
-      const speed = Number(layer.getAttribute('data-speed')) || 0.5;
+      const speed = Number(layer.getAttribute('data-speed')) || 3;
     });
   }
-  cuadros = Array.from({ length: 10 }, (_, i) => {
+  cuadros = Array.from({ length: 25 }, (_, i) => {
     const colores = ['#D9EAFD', '#0971d5', '#474f95', '#6f5097', '#C7D2FE', '#474F95FF'];
     const opacidades = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6];
     return {

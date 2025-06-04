@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 import {
   CrearEventoBody,
-  CrearEventoRequest, EditarEventoRequest,
+  CrearEventoRequest, EditarEventoRequest, EliminarEventoRequest,
   EventoDetalle,
   EventoResponse,
-  EventoResumen
+  EventoResumen, InscribirseEventoBody
 } from '../models/evento.model';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
@@ -40,8 +40,8 @@ export class EventService {
     return this.http.post<RespuestaGeneral<string>>(`${this.apiUrl}/crear`, payload);
   }
 
-  inscribirse(idEvento: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/inscribirse`, { idEvento });
+  inscribirse(payload: InscribirseEventoBody): Observable<any> {
+    return this.http.post(`${this.apiUrl}/inscribirse`, payload);
   }
 
   listarMisEventos(): Observable<EventoResponse[]> {
@@ -55,8 +55,8 @@ export class EventService {
   editarEvento(request: EditarEventoRequest): Observable<any> {
     return this.http.put(`${this.apiUrl}/editar`, request);
   }
-  eliminarEvento(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/eliminar?id=${id}`);
+  eliminarEvento(request: EliminarEventoRequest): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/eliminar`, { body: request });
   }
 
   listarEventosResumen(): Observable<EventoResumen[]> {

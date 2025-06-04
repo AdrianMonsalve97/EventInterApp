@@ -19,7 +19,7 @@ public sealed class InscribirseEventoHandler : IRequestHandler<InscribirseEvento
 
     public async Task<RespuestaGeneral<string>> Handle(InscribirseEventoCommand request, CancellationToken cancellationToken)
     {
-        var todosLosEventos = await _context.Eventos.ToListAsync(cancellationToken);
+        List<Evento> todosLosEventos = await _context.Eventos.ToListAsync(cancellationToken);
 
         Evento? evento = await _context.Eventos
             .IgnoreQueryFilters()
@@ -50,12 +50,14 @@ public sealed class InscribirseEventoHandler : IRequestHandler<InscribirseEvento
         if (eventosUsuario >= 3)
             return RespuestaHelper.Error<string>("Ya estás inscrito en el máximo de 3 eventos permitidos.");
 
-        Inscripcion nueva = new Inscripcion
+        Inscripcion nueva = new ()
         {
             UsuarioId = request.IdUsuario,
             EventoId = request.IdEvento,
             FechaInscripcion = DateTime.UtcNow
         };
+
+        evento.CantidadInscritos++ ;
 
         _context.Inscripciones.Add(nueva);
         await _context.SaveChangesAsync(cancellationToken);

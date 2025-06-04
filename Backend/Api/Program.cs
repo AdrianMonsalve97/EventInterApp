@@ -6,7 +6,6 @@ using FluentValidation.AspNetCore;
 using Infraestructure.Mailing;
 using Infraestructure.Persistence;
 using Infrastructure.Mailing.Models;
-using Infrastructure.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;

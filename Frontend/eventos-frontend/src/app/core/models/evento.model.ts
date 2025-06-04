@@ -49,3 +49,12 @@ export interface EditarEventoRequest {
   nuevaCapacidadMaxima: number;
   idUsuario: number;
 }
+export interface EliminarEventoRequest {
+  idEvento: number;
+  idUsuario: number;
+}
+
+export interface InscribirseEventoBody {
+  idEvento: number;
+  idUsuario: number;
+}

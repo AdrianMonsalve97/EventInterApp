@@ -5,15 +5,15 @@ import { ToastModule } from 'primeng/toast';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
-
 import { Router } from '@angular/router';
-import {AuthService} from '../../../core/services/auth.service';
-import {CambiarPasswordRequest} from '../../../core/models/password.model';
+import { AuthService } from '../../../core/services/auth.service';
+import { CambiarPasswordRequest } from '../../../core/models/password.model';
+import { Password } from 'primeng/password';
 
 @Component({
   selector: 'app-cambiar-password',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputTextModule, ButtonModule, ToastModule],
+  imports: [CommonModule, ReactiveFormsModule, InputTextModule, ButtonModule, ToastModule, Password],
   providers: [MessageService],
   templateUrl: './cambiar-password.component.html'
 })
@@ -26,9 +26,13 @@ export class CambiarPasswordComponent {
   cargando = signal(false);
 
   form = this.fb.group({
-    usuarioId: [this.auth.usuarioId(), Validators.required],
+    usuarioId: [this.auth.usuarioId() ?? '', Validators.required],
     passwordActual: ['', Validators.required],
-    passwordNueva: ['', [Validators.required, Validators.minLength(8)]],
+    passwordNueva: ['', [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.pattern(/^(?=.*[!@#$%^&*(),.?":{}|<>]).+$/)
+    ]],
     confirmar: ['', Validators.required]
   }, { validators: CambiarPasswordComponent.passwordsIguales });
 
@@ -39,12 +43,9 @@ export class CambiarPasswordComponent {
   }
 
   cambiarPassword() {
-    if (this.form.invalid) return;
-
     this.cargando.set(true);
-
     const payload: CambiarPasswordRequest = {
-      idUsuario: this.form.value.usuarioId,
+      idUsuario: localStorage.getItem('usuarioId') ? Number(localStorage.getItem('usuarioId')) : 0,
       passwordActual: this.form.value.passwordActual!,
       passwordNueva: this.form.value.passwordNueva!
     };
@@ -52,7 +53,7 @@ export class CambiarPasswordComponent {
     this.auth.cambiarPassword(payload).subscribe({
       next: () => {
         this.toast.add({ severity: 'success', summary: 'Contraseña actualizada' });
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/login']);
       },
       error: () => {
         this.toast.add({ severity: 'error', summary: 'Error', detail: 'No se pudo cambiar la contraseña' });

@@ -7,11 +7,35 @@
       class="bg-purple-900 text-white font-bold"
       size="large"
       [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }"
-      shape="circle"
     >
     </p-avatar>
     <span class="text-lg font-semibold text-dark truncate">{{ usuarioNombreCompleto() }}</span>
   </div>
 
+  <!-- Menú lateral -->
   <p-panelMenu [model]="items" class="w-full" [style.border]="false"></p-panelMenu>
+
+  <div class="mt-auto pt-4">
+    <div class="mt-auto pt-4">
+      <button
+        *ngIf="mostrarBotonVolver()"
+        pButton
+        class="w-full p-button-secondary"
+        label="Volver"
+        icon="pi pi-arrow-left"
+        (click)="router.navigate(['/usuarios'])"
+      ></button>
+
+      <button
+        *ngIf="mostrarBotonCerrarSesion()"
+        pButton
+        class="w-full p-button-danger"
+        label="Cerrar Sesión"
+        icon="pi pi-sign-out"
+        (click)="cerrarSesion()"
+      ></button>
+    </div>
+
+
+  </div>
 </div>

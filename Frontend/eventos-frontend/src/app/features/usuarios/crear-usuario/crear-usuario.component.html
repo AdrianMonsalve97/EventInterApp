@@ -18,7 +18,7 @@
       </p-float-label>
     </div>
     <!-- Documento (ID del usuario) -->
-    <div>
+    <div class="mt-6">
       <p-float-label>
         <input pInputText
                id="id"
@@ -32,7 +32,7 @@
     </div>
 
     <!-- Nombre -->
-    <div>
+    <div class="mt-6">
       <p-float-label>
         <label for="nombre" class="block font-medium mb-1">Nombre completo</label>
         <input pInputText
@@ -45,7 +45,7 @@
     </div>
 
     <!-- Email -->
-    <div>
+    <div class="mt-6">
       <p-float-label>
         <label for="email" class="block font-medium mb-1">Correo electrónico</label>
         <input pInputText
@@ -58,9 +58,10 @@
     </div>
 
     <!-- Rol (solo si es administrador) -->
-    <div *ngIf="esAdmin()">
+    <div *ngIf="!sinSesion() && esAdmin()">
       <p-float-label class="text-blue-900" variant="in">
         <p-select
+          id="rol"
           name="rol"
           [options]="roles"
           optionLabel="label"
@@ -70,17 +71,18 @@
           placeholder="Selecciona un rol"
           class="w-full">
         </p-select>
-
+        <label for="rol">Rol</label>
       </p-float-label>
     </div>
+
     <div class="pt-4">
       <button pButton type="submit"
                class="w-full w-full"
               style="background-color: #6600ff; color: white; font-weight: bold;
               padding: 0.75rem; border-radius: 0.5rem; border: none; cursor: pointer;"
-              redirectTo="/usuarios"
+              redirectTo="/login"
       >
-        Crear Evento
+        Crear Usuario
       </button>
 
     </div>

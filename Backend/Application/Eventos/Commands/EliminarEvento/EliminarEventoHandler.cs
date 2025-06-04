@@ -20,18 +20,18 @@ public sealed class EliminarEventoHandler : IRequestHandler<EliminarEventoComman
     public async Task<RespuestaGeneral<string>> Handle(EliminarEventoCommand request, CancellationToken cancellationToken)
     {
         Evento? evento = await _context.Eventos
-            .FirstOrDefaultAsync(e => e.Id == request.UsuarioId, cancellationToken);
+            .FirstOrDefaultAsync(e => e.Id == request.idEvento, cancellationToken);
 
         if (evento is null)
             return RespuestaHelper.Error<string>("El evento no existe.");
 
         Usuario? solicitante = await _context.Usuarios
-            .FirstOrDefaultAsync(u => u.Id == request.UsuarioId, cancellationToken);
+            .FirstOrDefaultAsync(u => u.Id == request.idUsuario, cancellationToken);
 
         if (solicitante is null)
             return RespuestaHelper.Error<string>("Usuario no encontrado.");
 
-        bool esCreador = evento.IdCreador == request.UsuarioId;
+        bool esCreador = evento.IdCreador == request.idUsuario;
         bool esAdmin = solicitante.Rol == Domain.Enums.RolUsuario.Administrador;
 
         if (!esCreador && !esAdmin)
@@ -39,7 +39,7 @@ public sealed class EliminarEventoHandler : IRequestHandler<EliminarEventoComman
 
 
         bool tieneInscritos = await _context.Inscripciones
-            .AnyAsync(i => i.EventoId == request.EventoId, cancellationToken);
+            .AnyAsync(i => i.EventoId == request.idEvento, cancellationToken);
 
         if (tieneInscritos)
             return RespuestaHelper.Error<string>("No se puede eliminar un evento con asistentes inscritos.");

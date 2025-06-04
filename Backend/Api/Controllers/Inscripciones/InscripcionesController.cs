@@ -35,7 +35,7 @@ public class InscripcionesController : ControllerBase
     public async Task<IActionResult> CancelarInscripcion([FromBody] EliminarInscripcionCommand comando)
     {
         RespuestaGeneral<string> respuesta = await _mediator.Send(comando);
-        return respuesta.Error ? BadRequest(respuesta) : Ok(respuesta);
+        return  Ok(respuesta);
     }
 
 }

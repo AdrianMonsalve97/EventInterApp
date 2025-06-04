@@ -1,4 +1,5 @@
-<div class="relative h-screen  bg-gradient-to-b from-[#1e2a78] to-[#3d4ecb] font-montserrat">
+<p-toast> #toast></p-toast>
+<div class="relative h-screen  bg-ligth font-montserrat">
   <!-- Fondo cuadrado animado -->
   <ul class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
     <li
@@ -56,6 +57,9 @@
           label="Iniciar Sesión"
           [disabled]="loginForm.invalid || loading()"
         ></button>
+        <div class="flex justify-between items-center text-xs text-gray-500 mt-2">
+          <a href="usuarios/crear" class="hover:underline">Registrese aqui usuario asistente</a>
+        </div>
       </form>
     </div>
   </div>

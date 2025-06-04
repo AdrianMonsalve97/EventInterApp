@@ -29,12 +29,12 @@
     </div>
 
     <div>
-      <label class="font-medium">Fecha y hora</label>
+      <label class="font-medium m-2 ">Fecha y hora</label>
       <p-calendar
         formControlName="fechaHora"
         [showTime]="true"
         showIcon="true"
-        inputClass="w-full mt-1"
+        inputClass="w-full m-2"
       />
     </div>
 
@@ -44,11 +44,11 @@
     </div>
 
     <div>
-      <label class="font-medium">Capacidad Máxima</label>
+      <label class="font-medium m-2">Capacidad Máxima</label>
       <p-inputNumber
         formControlName="capacidadMaxima"
         [min]="1"
-        inputClass="w-full mt-1"
+        inputClass="w-full m-3"
       />
     </div>
 
@@ -62,8 +62,23 @@
         <i class="pi pi-save"></i>
         <span>Guardar Cambios</span>
       </button>
+
+      <button
+        pButton
+        type="button"
+        label="Eliminar Evento"
+        icon="pi pi-trash"
+        severity="danger"
+        (click)="eliminarEvento()"
+        [disabled]="form.invalid || cargando() || !eventoCargado() || !eventoSeleccionadoManual()"
+        class="flex items-center m-3 justify-center gap-2"
+      ></button>
+
     </div>
+
   </form>
+
+
 
   <div class="mt-10" *ngIf="asistentes().length > 0">
     <h3 class="text-xl font-semibold mb-2">Asistentes registrados</h3>

@@ -33,12 +33,12 @@ export class CrearUsuarioComponent {
   private auth = inject(AuthService);
   private usuarioService = inject(UsuarioService);
   private toast = inject(MessageService);
-
-  id = signal<number | null>(null); // Documento
+   sinSesion = computed(() => localStorage.getItem('usuarioId') === null);
+  id = signal<number | null>(null);
   nombreUsuario = signal('');
   nombre = signal('');
   email = signal('');
-  rol = signal('Asistente'); // Por defecto, Asistente
+  rol = signal('Asistente');
   roles = [
     { label: 'Administrador', value: 'Administrador' },
     { label: 'Expositor', value: 'Expositor' },

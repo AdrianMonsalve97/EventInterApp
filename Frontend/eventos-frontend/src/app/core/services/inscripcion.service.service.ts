@@ -22,8 +22,10 @@ export class InscripcionServiceService {
     return this.http.get<InscripcionResponse[]>(`${this.apiUrl}/inscripciones/evento/${idEvento}`, { params });
   }
   cancelarInscripcion(idUsuario: number, idEvento: number): Observable<any> {
-    const params = new HttpParams().set('idUsuario', idUsuario).set('idEvento', idEvento);
-    return this.http.delete(`${this.apiUrl}/inscripciones/cancelar`, { params });
+    const payload = { idUsuario, idEvento };
+    return this.http.request('delete', `${this.apiUrl}/inscripciones`, {
+      body: payload
+    });
   }
 
 

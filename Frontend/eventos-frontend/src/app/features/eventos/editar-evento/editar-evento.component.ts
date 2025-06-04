@@ -10,7 +10,12 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { TableModule } from 'primeng/table';
 import { EventService } from '../../../core/services/event.service';
-import { EventoResumen, EventoDetalle, EditarEventoRequest } from '../../../core/models/evento.model';
+import {
+  EventoResumen,
+  EventoDetalle,
+  EditarEventoRequest,
+  EliminarEventoRequest
+} from '../../../core/models/evento.model';
 
 @Component({
   selector: 'app-editar-evento',
@@ -138,5 +143,39 @@ export class EditarEventoComponent {
         });
       }
     });
+  }
+  eliminarEvento() {
+    if (!this.eventoIdSeleccionado) return;
+
+    const idUsuarioLocal = localStorage.getItem('usuarioId');
+    if (!idUsuarioLocal) {
+      this.toast.add({ severity: 'error', summary: 'Error', detail: 'No se pudo obtener el ID del usuario' });
+      return;
+    }
+
+    const payload: EliminarEventoRequest = {
+      idEvento: this.eventoIdSeleccionado,
+      idUsuario: Number(idUsuarioLocal)
+    };
+
+    this.eventoService.eliminarEvento(payload).subscribe({
+      next: (response) => {
+        this.toast.add({
+          severity: 'success',
+          summary: 'Evento eliminado',
+          detail: response?.mensaje ?? 'Evento eliminado correctamente'
+        });
+        this.router.navigate(['/eventos']);
+      },
+      error: (err) => {
+        const mensajeError = err.error?.mensaje ?? 'No se pudo eliminar el evento';
+        this.toast.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: mensajeError
+        });
+      }
+    });
+
   }
 }
